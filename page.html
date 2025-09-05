@@ -150,7 +150,7 @@
             /* background: white; */
             border-radius: 6px;
             /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
-            padding: 25px;
+            padding: 5px;
         }
 
         .content-header {
@@ -173,7 +173,7 @@
 
         .video-card {
             background: #fafafa;
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -406,11 +406,12 @@
 
             <main class="content-area">
                 <div class="content-header">
-                    <h2 class="content-title" id="content-title">Select a sermon series</h2>
+                    <h2 class="content-title" id="content-title">Loading most recent sermons...</h2>
                 </div>
                 <div id="videos-container">
-                    <div class="empty-state">
-                        <h3>Choose a sermon series to get started</h3>
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading videos...</p>
                     </div>
                 </div>
             </main>
@@ -462,9 +463,35 @@
                 playlists = await response.json();
                 console.log('Playlists loaded:', playlists);
                 renderPlaylists();
+                
+                // Auto-load "most-recent" playlist after playlists are rendered
+                autoLoadMostRecent();
             } catch (error) {
                 console.error('Error:', error);
                 showError('Failed to load: ' + error.message);
+            }
+        }
+
+        function autoLoadMostRecent() {
+            console.log('Auto-loading most recent playlist');
+            
+            // Look for "most-recent" playlist (case-insensitive)
+            const mostRecentIndex = playlists.findIndex(playlist => 
+                playlist.filename && playlist.filename.toLowerCase().includes('most-recent')
+            );
+            
+            if (mostRecentIndex !== -1) {
+                console.log('Found most-recent playlist at index:', mostRecentIndex);
+                selectPlaylist(mostRecentIndex);
+            } else {
+                // Fallback: load the first playlist if "most-recent" not found
+                console.log('Most-recent playlist not found, loading first playlist');
+                if (playlists.length > 0) {
+                    selectPlaylist(0);
+                } else {
+                    document.getElementById('content-title').textContent = 'No sermon series available';
+                    document.getElementById('videos-container').innerHTML = '<div class="empty-state"><h3>No sermon series found</h3></div>';
+                }
             }
         }
 
