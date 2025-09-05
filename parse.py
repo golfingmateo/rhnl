@@ -25,11 +25,11 @@ def get_channel_json():
     target_playlists = [url.lower() for url in PLAYLISTS]
 
     playlists = []
-    all_videos = []
     # Get all playlists from channel
     cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{channel_url}/playlists"]
     playlist_data = run_command(cmd_playlists)
 
+    os.makedirs("playlists", exist_ok=True)
     # Process only target playlists
     for item in playlist_data:
         if item.get('webpage_url_basename') == 'playlist':
@@ -48,18 +48,11 @@ def get_channel_json():
 
                 # Get videos for this playlist with full details
                 # if item.get('url'):
+                #     print(f"Downloading Videos for : {playlist_title}")
                 #     playlist_videos = get_playlist_videos_with_details(item.get('url'))
-                #     all_videos += playlist_videos
                 #     with open(f"./playlists/{filename}.json", "w", encoding='utf-8') as f:
                 #         json.dump(playlist_videos, f, indent=2, ensure_ascii=False)
-
-    # all_videos = sorted(all_videos, key= lambda x: x.get('timestamp'))[15:]
-
-    # with open('./recent.json', 'w', encoding='utf-8') as f:
-    #     json.dump(all_videos, f, indent=2, ensure_ascii=False)
-    # Print to console
-    # print(json.dumps(playlists, indent=2))
-    #
+                #     print("Wrote json")
 
     build_latest_playlist()
     # Write to file
@@ -68,18 +61,21 @@ def get_channel_json():
 
     print(f"\nSaved to ./playlists.json", file=sys.stderr)
 
+
 def build_latest_playlist():
     all_videos = []
     for file in os.listdir("playlists"):
-        with open(file, 'r', encoding='utf-8') as f:
+        with open(f"playlists/{file}", 'r', encoding='utf-8') as f:
             all_videos += json.load(f)
 
     all_videos = sorted(all_videos, key=lambda x: x.get('timestamp'), reverse=True)
+    all_videos = all_videos[:15]
     with open('./playlists/latest.json', 'w', encoding='utf-8') as f:
         json.dump(all_videos, f, indent=2, ensure_ascii=False)
 
 def get_playlist_videos_with_details(playlist_url):
     """Get videos from playlist with full details including descriptions."""
+
     videos = []
 
     # Get video IDs first
@@ -89,7 +85,6 @@ def get_playlist_videos_with_details(playlist_url):
     # Get details for each video
     for item in video_items:
         if item.get('_type') == 'url' and item.get('id'):
-
             # videos.append({
             #     'title': item.get('title', ''),
             #     'id': item.get('id')
