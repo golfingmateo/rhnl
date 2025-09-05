@@ -429,12 +429,13 @@
                 <main class="content-area">
                     <div class="content-header">
                         <h2 class="content-title" id="content-title">
-                            Select a sermon series
+                            Most Recent Sermons
                         </h2>
                     </div>
                     <div id="videos-container">
-                        <div class="empty-state">
-                            <h3>Choose a sermon series to get started</h3>
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading sermons...</p>
                         </div>
                     </div>
                 </main>
@@ -493,19 +494,46 @@
             async function init() {
                 console.log("Init called");
                 try {
-                    const response = await fetch(API_BASE_URL + "index.json");
-                    console.log("Response:", response.status);
+                    // Load playlists for sidebar
+                    const playlistResponse = await fetch(
+                        API_BASE_URL + "index.json",
+                    );
+                    console.log("Playlist response:", playlistResponse.status);
 
-                    if (!response.ok) {
-                        throw new Error("Network error: " + response.status);
+                    if (!playlistResponse.ok) {
+                        throw new Error(
+                            "Network error: " + playlistResponse.status,
+                        );
                     }
 
-                    playlists = await response.json();
+                    playlists = await playlistResponse.json();
                     console.log("Playlists loaded:", playlists);
                     renderPlaylists();
+
+                    // Load most recent videos by default
+                    await loadMostRecentVideos();
                 } catch (error) {
                     console.error("Error:", error);
                     showError("Failed to load: " + error.message);
+                }
+            }
+
+            async function loadMostRecentVideos() {
+                console.log("Loading most recent videos");
+                try {
+                    const response = await fetch(
+                        API_PLAYLIST + "most-recent.json",
+                    );
+                    if (!response.ok) {
+                        throw new Error("Failed to load most recent videos");
+                    }
+
+                    currentVideos = await response.json();
+                    console.log("Most recent videos loaded:", currentVideos);
+                    renderVideos();
+                } catch (error) {
+                    console.error("Error loading most recent videos:", error);
+                    showError("Failed to load most recent videos");
                 }
             }
 
