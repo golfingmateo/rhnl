@@ -69,8 +69,9 @@ def get_channel_json():
 def build_latest_playlist():
     all_videos = []
     for file in os.listdir("playlists"):
-        with open(f"playlists/{file}", 'r', encoding='utf-8') as f:
-            all_videos += json.load(f)
+        if(file != 'most-recent.json'):
+            with open(f"playlists/{file}", 'r', encoding='utf-8') as f:
+                all_videos += json.load(f)
 
     all_videos = sorted(all_videos, key=lambda x: x.get('timestamp'), reverse=True)
     all_videos = all_videos[:15]
