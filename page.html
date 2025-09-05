@@ -30,25 +30,6 @@
             margin-bottom: 30px;
         }
 
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.5rem;
-            }
-        }
-
         .mobile-menu-toggle {
             display: none;
             background: rgb(40, 40, 40);
@@ -117,6 +98,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             margin-bottom: 8px;
+            border: 1px solid rgb(40,40,40);
         }
 
         .playlist-item:hover {
@@ -124,8 +106,8 @@
         }
 
         .playlist-item.active {
-            background: rgb(50, 50, 50);
-            border: 2px solid #2b2b2b;
+            background: rgb(60, 60, 60);
+            border: 1px solid #939ba1;
         }
 
         .playlist-thumbnail {
@@ -155,14 +137,26 @@
 
         .content-header {
             margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #626568;
         }
 
         .content-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: #1a202c;
+            margin-top: 0px;
+        }
+        @media (max-width: 768px) {
+           .content-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-title {
+                font-size: 1.1rem;
+            }
         }
 
         .videos-grid {
