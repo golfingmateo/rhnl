@@ -25,6 +25,10 @@ def get_channel_json():
     target_playlists = [url.lower() for url in PLAYLISTS]
 
     playlists = []
+    playlists.append({
+        "title": "Most Recent",
+        "filename": "most-recent.json"
+    })
     # Get all playlists from channel
     cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{channel_url}/playlists"]
     playlist_data = run_command(cmd_playlists)
@@ -70,7 +74,7 @@ def build_latest_playlist():
 
     all_videos = sorted(all_videos, key=lambda x: x.get('timestamp'), reverse=True)
     all_videos = all_videos[:15]
-    with open('./playlists/latest.json', 'w', encoding='utf-8') as f:
+    with open('./playlists/most-recent.json', 'w', encoding='utf-8') as f:
         json.dump(all_videos, f, indent=2, ensure_ascii=False)
 
 def get_playlist_videos_with_details(playlist_url):
