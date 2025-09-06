@@ -443,7 +443,9 @@
     <script>
         console.log('Script loaded');
         
-        const API_PLAYLIST = 'playlists/';
+        const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/';
+        // const API_BASE_URL = '/';
+        const API_PLAYLIST = API_BASE_URL + 'playlists/';
         let playlists = [];
         let currentVideos = [];
 
@@ -460,7 +462,7 @@
         async function init() {
             console.log('Init called');
             try {
-                const response = await fetch('index.json');
+                const response = await fetch(API_BASE_URL + 'index.json');
                 console.log('Response:', response.status);
                 
                 if (!response.ok) {
@@ -523,7 +525,7 @@
                 playlistItem.addEventListener('click', function() { selectPlaylist(i); });
                 
                 const img = document.createElement('img');
-                img.src = playlist.thumbnail_url;
+                img.src = API_BASE_URL + playlist.thumbnail_url;
                 img.className = 'playlist-thumbnail';
                 img.onerror = function() { 
                     console.log('Playlist image FAILED to load. Attempted URL:', this.src);
