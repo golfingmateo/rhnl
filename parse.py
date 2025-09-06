@@ -8,24 +8,60 @@ import subprocess
 import json
 import sys
 import os
+from datetime import datetime, timezone
 
 # List of Playlists to resync
 CHANNEL_URL = "https://www.youtube.com/@RealityHonolulu"
+
+# Playlist Categories?
+# Summer Series: Parables of Jesus
+# Events? :  Easter, Vision Sunday
+# Misc?:  Guest Speakers, Advent
+# Equip Classes:  Ruth, 
+
 PLAYLISTS = [
-    "The Parables of Jesus",
-    "Vision Sunday",
+    "Most Recent",
     "Mark",
-    "Ruth Equip Class"
+    "The Parables of Jesus",
+    "This is Reality",
+    "The Attributes of God",
+    "Philippians",
+    "Vision Sunday",
+    "Ruth Equip Class",
 ]
+
 REFRESH_PLAYLIST = [
-    "Mark"
+    # "Mark",
+    # "The Parables of Jesus",
+    "This is Reality",
+    # "The Attributes of God",
+    # "Philippians",
+    # "Vision Sunday",
+    # "Ruth Equip Class",
 ]
+
 PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
 REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
 
-def _inplaylist(title, playlist):
-    return any(target == title.lower() for target in playlist)
 
+def is_in_playlist(title):
+    return any(target == title.lower() for target in PLAYLISTS)
+
+def is_in_refreshlist(title):
+    return any(target == title.lower() for target in REFRESH_PLAYLIST)
+
+def save_json(filename, data):
+    with open(filename, "w", encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    print(f"saved {filename}")
+
+def save_playlist(filename, data):
+    save_json(f"./docs/playlists/{filename}.json", data)
+
+def load_playlist(filename):
+    with open(f"./docs/playlists/{filename}", 'r', encoding='utf-8') as f:
+        return json.load(f)
+    
 def get_channel_json():
     """Get specific playlists by name."""
 
@@ -42,10 +78,10 @@ def get_channel_json():
     # Process only target playlists
     for item in playlist_data:
         if item.get('webpage_url_basename') == 'playlist':
-            playlist_title = item.get('title', '').strip()
+            playlist_title = item.get('title', '').split("|")[0].strip()
             filename = playlist_title.lower().replace(" ", "-")
             # Check if this playlist matches any of our targets
-            if _inplaylist(playlist_title, PLAYLISTS):
+            if is_in_playlist(playlist_title):
                 thumbnail = f'images/{filename}.jpg'
                 if not os.path.exists(f'./docs/{thumbnail}'):
                     thumbnail = item.get('thumbnails', [{}])[-1].get('url')
@@ -59,32 +95,26 @@ def get_channel_json():
                 playlists.append(playlist)
 
                 # Get videos for this playlist with full details
-                if _inplaylist(playlist_title, REFRESH_PLAYLIST) and item.get('url'):
+                if is_in_refreshlist(playlist_title) and item.get('url'):
                     print(f"Downloading Videos for : {playlist_title}")
                     playlist_videos = get_playlist_videos_with_details(item.get('url'))
-                    with open(f"./docs/playlists/{filename}.json", "w", encoding='utf-8') as f:
-                        json.dump(playlist_videos, f, indent=2, ensure_ascii=False)
-                    print("Wrote json")
+                    save_playlist(filename, playlist_videos)
 
     build_latest_playlist()
-    # Write to file
-    with open('./docs/index.json', 'w', encoding='utf-8') as f:
-        json.dump(playlists, f, indent=2, ensure_ascii=False)
 
-    print(f"\nSaved to ./docs/playlists.json", file=sys.stderr)
+    playlists = sorted(playlists, key=lambda x: PLAYLISTS.index(x.get('title').lower()))
+    save_json('./docs/index.json', playlists)
 
 
 def build_latest_playlist():
-    all_videos = []
-    for file in os.listdir("playlists"):
+    videos = []
+    for file in os.listdir("./docs/playlists"):
+        print(file)
         if(file != 'most-recent.json'):
-            with open(f"playlists/{file}", 'r', encoding='utf-8') as f:
-                all_videos += json.load(f)
-
-    all_videos = sorted(all_videos, key=lambda x: x.get('timestamp'), reverse=True)
-    all_videos = all_videos[:15]
-    with open('./playlists/most-recent.json', 'w', encoding='utf-8') as f:
-        json.dump(all_videos, f, indent=2, ensure_ascii=False)
+            videos += load_playlist(file)
+    videos = sorted(videos, key=lambda x: x.get('timestamp'), reverse=True)
+    videos = videos[:15]
+    save_playlist('most-recent', videos)
 
 def get_playlist_videos_with_details(playlist_url):
     """Get videos from playlist with full details including descriptions."""
@@ -94,20 +124,18 @@ def get_playlist_videos_with_details(playlist_url):
     # Get video IDs first
     cmd = ['yt-dlp', '--dump-json', '--flat-playlist', playlist_url]
     video_items = run_command(cmd)
-
+    # print(json.dumps(video_items[:3], indent=4))
     # Get details for each video
     for item in video_items:
         if item.get('_type') == 'url' and item.get('id'):
-            # videos.append({
-            #     'title': item.get('title', ''),
-            #     'id': item.get('id')
-            # })
+            if any([item.get('id') == v.get('video_id') for v in videos]):
+                continue
+            print(f"downloading details for {item.get('id')}")
             video_details = get_video_details(item.get('id'))
             if video_details:
-                print(f"downloading details for {item.get('id')}")
                 videos.append(video_details)
-
     return videos
+
 
 def get_all_videos_with_details(videos_url):
     """Get all channel videos with full details."""
@@ -126,6 +154,10 @@ def get_all_videos_with_details(videos_url):
 
     return videos
 
+def convert_epoch_to_iso(epoch):
+    dt_object_utc = datetime.fromtimestamp(epoch, timezone.utc)
+    return dt_object_utc.isoformat()
+
 def get_video_details(video_id):
     """Get full video details including description."""
     video_url = f"https://www.youtube.com/watch?v={video_id}"
@@ -136,10 +168,11 @@ def get_video_details(video_id):
 
         if result.returncode == 0 and result.stdout.strip():
             video_data = json.loads(result.stdout.strip())
+            # print(json.dumps(video_data, indent=4))
             return {
                 "title": video_data.get('title', ''),
                 "description": video_data.get('description', ''),
-                "date": video_data.get('upload_date', ''),
+                "date": convert_epoch_to_iso(video_data['timestamp']),
                 # "url": video_data.get('url', '')
                 "thumbnail_url": video_data.get('thumbnails', [{}])[-1].get('url'),
                 "video_id": video_id,

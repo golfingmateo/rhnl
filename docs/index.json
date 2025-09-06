@@ -4,22 +4,40 @@
     "filename": "most-recent.json"
   },
   {
+    "title": "Mark",
+    "filename": "mark.json",
+    "thumbnail_url": "images/mark.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxFS9pxNYttBzOzxVe0f4yo"
+  },
+  {
     "title": "The Parables of Jesus",
     "filename": "the-parables-of-jesus.json",
     "thumbnail_url": "images/the-parables-of-jesus.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lwh7ypFMadOoRoJQfFRL0Kx"
   },
   {
+    "title": "This is Reality",
+    "filename": "this-is-reality.json",
+    "thumbnail_url": "images/this-is-reality.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lysFNNd8Y-IMJS-tu5A2x-w"
+  },
+  {
+    "title": "The Attributes of God",
+    "filename": "the-attributes-of-god.json",
+    "thumbnail_url": "images/the-attributes-of-god.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxUq1Ver3iX64mRIc4iuC7h"
+  },
+  {
+    "title": "Philippians",
+    "filename": "philippians.json",
+    "thumbnail_url": "images/philippians.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxpbdtleOH3wz1kw74Pp_4s"
+  },
+  {
     "title": "Vision Sunday",
     "filename": "vision-sunday.json",
     "thumbnail_url": "images/vision-sunday.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lzff0F7yX6PVLldzVaSBB7F"
-  },
-  {
-    "title": "Mark",
-    "filename": "mark.json",
-    "thumbnail_url": "images/mark.jpg",
-    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxFS9pxNYttBzOzxVe0f4yo"
   },
   {
     "title": "Ruth Equip Class",
