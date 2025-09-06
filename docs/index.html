@@ -429,6 +429,18 @@
     </div>
 
     <script>
+        // To tell the iframe our size on squarespace side
+        function sendHeight() {
+            parent.postMessage(
+            { frameHeight: document.body.scrollHeight },
+            "*"
+            );
+        }
+
+        window.addEventListener("load", sendHeight);
+        window.addEventListener("resize", sendHeight);
+    </script>
+    <script>
         console.log('Script loaded');
         
         const API_PLAYLIST = 'playlists/';
