@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sunday Livestream</title>
+  <style>
+    #livestream, #placeholder {
+      display: none;
+      text-align: center;
+      margin-top: 50px;
+    }
+    iframe {
+      width: 560px;
+      height: 315px;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="livestream">
+    <!-- Permanent YouTube live embed -->
+    <iframe 
+      src="https://www.youtube.com/embed/live_stream?channel=UCC1I2rNY2tiUZUFft4SVj2A" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div id="placeholder">
+    <h2>Our livestream is available every Sunday from 10:30am to 12:30pm (Hawaii time).</h2>
+  </div>
+
+  <script>
+    function showStream() {
+      // Get the current time in Hawaii
+      const hawaiiTime = new Date(
+        new Date().toLocaleString("en-US", { timeZone: "Pacific/Honolulu" })
+      );
+
+      const day = hawaiiTime.getDay(); // 0 = Sunday
+      const hours = hawaiiTime.getHours();
+      const minutes = hawaiiTime.getMinutes();
+
+      // Convert to minutes since midnight
+      const currentTime = hours * 60 + minutes;
+      const startTime = 10 * 60 + 30; // 10:30 AM
+      const endTime = 12 * 60 + 30;   // 12:30 PM
+
+      if (day === 0 && currentTime >= startTime && currentTime <= endTime) {
+        document.getElementById("livestream").style.display = "block";
+      } else {
+       document.getElementById("livestream").style.display = "block";
+        //document.getElementById("placeholder").style.display = "block";
+      }
+    }
+
+    showStream();
+  </script>
+</body>
+</html>

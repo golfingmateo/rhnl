@@ -18,7 +18,7 @@ PLAYLISTS = [
     "Ruth Equip Class"
 ]
 REFRESH_PLAYLIST = [
-    "Marks"
+    "Mark"
 ]
 PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
 REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
