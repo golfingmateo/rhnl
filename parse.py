@@ -46,8 +46,8 @@ def get_channel_json():
             filename = playlist_title.lower().replace(" ", "-")
             # Check if this playlist matches any of our targets
             if _inplaylist(playlist_title, PLAYLISTS):
-                thumbnail = f'/docs/images/{filename}.jpg'
-                if not os.path.exists(f'./{thumbnail}'):
+                thumbnail = f'images/{filename}.jpg'
+                if not os.path.exists(f'./docs/{thumbnail}'):
                     thumbnail = item.get('thumbnails', [{}])[-1].get('url')
                 playlist = {
                     "title": playlist_title,

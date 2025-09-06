@@ -6,25 +6,25 @@
   {
     "title": "The Parables of Jesus",
     "filename": "the-parables-of-jesus.json",
-    "thumbnail_url": "/docs/images/the-parables-of-jesus.jpg",
+    "thumbnail_url": "images/the-parables-of-jesus.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lwh7ypFMadOoRoJQfFRL0Kx"
   },
   {
     "title": "Vision Sunday",
     "filename": "vision-sunday.json",
-    "thumbnail_url": "/docs/images/vision-sunday.jpg",
+    "thumbnail_url": "images/vision-sunday.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lzff0F7yX6PVLldzVaSBB7F"
   },
   {
     "title": "Mark",
     "filename": "mark.json",
-    "thumbnail_url": "/docs/images/mark.jpg",
+    "thumbnail_url": "images/mark.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxFS9pxNYttBzOzxVe0f4yo"
   },
   {
     "title": "Ruth Equip Class",
     "filename": "ruth-equip-class.json",
-    "thumbnail_url": "/docs/images/ruth-equip-class.jpg",
+    "thumbnail_url": "images/ruth-equip-class.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lyr_TFGlXhQu6JsYeB2kJ_5"
   }
 ]
