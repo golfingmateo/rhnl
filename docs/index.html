@@ -431,8 +431,7 @@
     <script>
         console.log('Script loaded');
         
-        const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/';
-        const API_PLAYLIST = API_BASE_URL + 'playlists/';
+        const API_PLAYLIST = 'playlists/';
         let playlists = [];
         let currentVideos = [];
 
@@ -449,7 +448,7 @@
         async function init() {
             console.log('Init called');
             try {
-                const response = await fetch(API_BASE_URL + 'index.json');
+                const response = await fetch('index.json');
                 console.log('Response:', response.status);
                 
                 if (!response.ok) {

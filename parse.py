@@ -10,19 +10,24 @@ import sys
 import os
 
 # List of Playlists to resync
+CHANNEL_URL = "https://www.youtube.com/@RealityHonolulu"
 PLAYLISTS = [
-    "The Parables of Jesus Playlist",
+    "The Parables of Jesus",
     "Vision Sunday",
     "Mark",
     "Ruth Equip Class"
 ]
+REFRESH_PLAYLIST = [
+    "Marks"
+]
+PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
+REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
+
+def _inplaylist(title, playlist):
+    return any(target == title.lower() for target in playlist)
 
 def get_channel_json():
     """Get specific playlists by name."""
-    channel_url = "https://www.youtube.com/@RealityHonolulu"
-
-    # Hardcoded playlist names to search for
-    target_playlists = [url.lower() for url in PLAYLISTS]
 
     playlists = []
     playlists.append({
@@ -30,40 +35,43 @@ def get_channel_json():
         "filename": "most-recent.json"
     })
     # Get all playlists from channel
-    cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{channel_url}/playlists"]
+    cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{CHANNEL_URL}/playlists"]
     playlist_data = run_command(cmd_playlists)
 
     os.makedirs("playlists", exist_ok=True)
     # Process only target playlists
     for item in playlist_data:
         if item.get('webpage_url_basename') == 'playlist':
-            playlist_title = item.get('title', '')
+            playlist_title = item.get('title', '').strip()
             filename = playlist_title.lower().replace(" ", "-")
             # Check if this playlist matches any of our targets
-            if any(target.lower() in playlist_title.lower() for target in target_playlists):
+            if _inplaylist(playlist_title, PLAYLISTS):
+                thumbnail = f'/docs/images/{filename}.jpg'
+                if not os.path.exists(f'./{thumbnail}'):
+                    thumbnail = item.get('thumbnails', [{}])[-1].get('url')
                 playlist = {
                     "title": playlist_title,
                     "filename": f"{filename}.json",
-                    "thumbnail_url": item.get('thumbnails', [{}])[-1].get('url'),
+                    "thumbnail_url": thumbnail,
                     "link": item.get('url', '')
                     # "color": "#57f2a5",
                 }
                 playlists.append(playlist)
 
                 # Get videos for this playlist with full details
-                # if item.get('url'):
-                #     print(f"Downloading Videos for : {playlist_title}")
-                #     playlist_videos = get_playlist_videos_with_details(item.get('url'))
-                #     with open(f"./playlists/{filename}.json", "w", encoding='utf-8') as f:
-                #         json.dump(playlist_videos, f, indent=2, ensure_ascii=False)
-                #     print("Wrote json")
+                if _inplaylist(playlist_title, REFRESH_PLAYLIST) and item.get('url'):
+                    print(f"Downloading Videos for : {playlist_title}")
+                    playlist_videos = get_playlist_videos_with_details(item.get('url'))
+                    with open(f"./docs/playlists/{filename}.json", "w", encoding='utf-8') as f:
+                        json.dump(playlist_videos, f, indent=2, ensure_ascii=False)
+                    print("Wrote json")
 
     build_latest_playlist()
     # Write to file
-    with open('./index.json', 'w', encoding='utf-8') as f:
+    with open('./docs/index.json', 'w', encoding='utf-8') as f:
         json.dump(playlists, f, indent=2, ensure_ascii=False)
 
-    print(f"\nSaved to ./playlists.json", file=sys.stderr)
+    print(f"\nSaved to ./docs/playlists.json", file=sys.stderr)
 
 
 def build_latest_playlist():
@@ -96,6 +104,7 @@ def get_playlist_videos_with_details(playlist_url):
             # })
             video_details = get_video_details(item.get('id'))
             if video_details:
+                print(f"downloading details for {item.get('id')}")
                 videos.append(video_details)
 
     return videos
