@@ -12,23 +12,23 @@ from datetime import datetime, timezone
 
 # List of Playlists to resync
 CHANNEL_URL = "https://www.youtube.com/@RealityHonolulu"
-
+FOLDER_ROOT = "./docs/data"
 # Playlist Categories?
 # Summer Series: Parables of Jesus
 # Events? :  Easter, Vision Sunday
 # Misc?:  Guest Speakers, Advent
 # Equip Classes:  Ruth, 
 
-PLAYLISTS = [
-    "Most Recent",
-    "Mark",
-    "The Parables of Jesus",
-    "This is Reality",
-    "The Attributes of God",
-    "Philippians",
-    "Vision Sunday",
-    "Ruth Equip Class",
-]
+PLAYLISTS = {
+    "Most Recent" : "",
+    "Mark" : "Sermon Series",
+    "The Parables of Jesus" : "Sermon Series",
+    "This is Reality": "Special Series",
+    "The Attributes of God" : "Special Series",
+    "Philippians" : "Sermon Series",
+    "Vision Sunday" : "Special Series",
+    "Ruth Equip Class" : "Special Series",
+}
 
 REFRESH_PLAYLIST = [
     # "Mark",
@@ -40,15 +40,20 @@ REFRESH_PLAYLIST = [
     # "Ruth Equip Class",
 ]
 
-PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
-REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
+# PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
+# REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
 
-
+def playlist_category(playlist_title):
+    for title, category in PLAYLISTS.items():
+        if title.lower() == playlist_title.lower():
+            return category
+    
 def is_in_playlist(title):
-    return any(target == title.lower() for target in PLAYLISTS)
+    return any(target.lower() == title.lower() for target in PLAYLISTS.keys())
 
 def is_in_refreshlist(title):
-    return any(target == title.lower() for target in REFRESH_PLAYLIST)
+    return False
+    # return any(target == title.lower() for target in REFRESH_PLAYLIST)
 
 def save_json(filename, data):
     with open(filename, "w", encoding='utf-8') as f:
@@ -56,10 +61,10 @@ def save_json(filename, data):
     print(f"saved {filename}")
 
 def save_playlist(filename, data):
-    save_json(f"./docs/playlists/{filename}.json", data)
+    save_json(f"{FOLDER_ROOT}/playlists/{filename}.json", data)
 
 def load_playlist(filename):
-    with open(f"./docs/playlists/{filename}", 'r', encoding='utf-8') as f:
+    with open(f"{FOLDER_ROOT}/playlists/{filename}", 'r', encoding='utf-8') as f:
         return json.load(f)
     
 def get_channel_json():
@@ -68,7 +73,8 @@ def get_channel_json():
     playlists = []
     playlists.append({
         "title": "Most Recent",
-        "filename": "most-recent.json"
+        "filename": "most-recent.json",
+        "thumbnail_url": "images/most-recent.jpg"
     })
     # Get all playlists from channel
     cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{CHANNEL_URL}/playlists"]
@@ -81,12 +87,15 @@ def get_channel_json():
             playlist_title = item.get('title', '').split("|")[0].strip()
             filename = playlist_title.lower().replace(" ", "-")
             # Check if this playlist matches any of our targets
-            if is_in_playlist(playlist_title):
+            # if is_in_playlist(playlist_title):
+            category = playlist_category(playlist_title)
+            if category:
                 thumbnail = f'images/{filename}.jpg'
-                if not os.path.exists(f'./docs/{thumbnail}'):
+                if not os.path.exists(f'{FOLDER_ROOT}/{thumbnail}'):
                     thumbnail = item.get('thumbnails', [{}])[-1].get('url')
                 playlist = {
                     "title": playlist_title,
+                    "category": category,
                     "filename": f"{filename}.json",
                     "thumbnail_url": thumbnail,
                     "link": item.get('url', '')
@@ -102,13 +111,13 @@ def get_channel_json():
 
     build_latest_playlist()
 
-    playlists = sorted(playlists, key=lambda x: PLAYLISTS.index(x.get('title').lower()))
-    save_json('./docs/index.json', playlists)
+    playlists = sorted(playlists, key=lambda x: [k.lower() for k in PLAYLISTS.keys()].index(x.get('title').lower()))
+    save_json(f"{FOLDER_ROOT}/index.json", playlists)
 
 
 def build_latest_playlist():
     videos = []
-    for file in os.listdir("./docs/playlists"):
+    for file in os.listdir(f"{FOLDER_ROOT}/playlists"):
         print(file)
         if(file != 'most-recent.json'):
             videos += load_playlist(file)

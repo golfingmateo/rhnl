@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Head / Includes
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Reality Honolulu | Sermon Library</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Dynamic LOAD CSS FILE local vs github
+    <script>
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const cssPath = isDev ? 'styles.css' : 'https://cdn.jsdelivr.net/gh/yourusername/yourrepo@main/styles.css';
+        
+        // Create and append the stylesheet link
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = cssPath;
+        document.head.appendChild(link);
+    </script> -->
+
+</head>
+
+
+
+<!-- Body Start
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<body>
+
+    <div class="grid-container">
+
+        <!-- Navigation Section -->
+        <!-- <section class="navigation-section"> -->
+            <aside class="sidebar-container" id="sidebar">
+                <div class="sidebar-header">
+                    <h3 class="sidebar-title">Sermon Series</h3>
+                </div>
+                <div id="sidebar">
+                    <!-- Populated by script -->
+                </div>
+            </aside>
+        <!-- </section> -->
+
+        <!-- Content Section -->
+        <section class="content-section">
+            <!-- Header Section -->
+            <!-- <section class="header-section"> -->
+                <button class="mobile-menu-toggle" onclick="showVideo()">Pick Sermon Series</button>
+                
+                <button class="back-button" id="back-button" onclick="hideVideo()">Go Back </button>
+            <!-- </section> -->
+            
+            <main class="content-area">
+                <!-- <div class="grid-view" id="grid-view"> -->
+                    <p id="playlist-title">My Title</p>
+                    <div class="playlist" id="playlist">
+                        <!-- Populated by script -->
+                    </div>
+                <!-- </div> -->
+            </main>
+        </section>
+
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="script.js" defer></script>
+    
+</body>
+</html>

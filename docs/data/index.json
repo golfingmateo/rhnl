@@ -1,55 +1,56 @@
 [
   {
     "title": "Most Recent",
-    "filename": "most-recent.json"
+    "filename": "most-recent.json",
+    "thumbnail_url": "images/most-recent.jpg"
   },
   {
     "title": "Mark",
     "category": "Sermon Series",
     "filename": "mark.json",
-    "thumbnail_url": "images/mark.jpg",
+    "thumbnail_url": "https://i.ytimg.com/pl_c/PLwwLAokm-4lxFS9pxNYttBzOzxVe0f4yo/studio_square_thumbnail.jpg?sqp=CICJocYG-oaymwEICNYGEOADSFqi85f_AwYIj7_axQY=&rs=AOn4CLCYAnLimb1m065mRzAQ0j8Y40m84Q",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxFS9pxNYttBzOzxVe0f4yo"
   },
   {
     "title": "The Parables of Jesus",
     "category": "Sermon Series",
     "filename": "the-parables-of-jesus.json",
-    "thumbnail_url": "images/the-parables-of-jesus.jpg",
+    "thumbnail_url": "https://i.ytimg.com/pl_c/PLwwLAokm-4lwh7ypFMadOoRoJQfFRL0Kx/studio_square_thumbnail.jpg?sqp=COfmoMYG-oaymwEICIAKENAFSFqi85f_AwYI-P3YxQY=&rs=AOn4CLD7yrhY8RbCy7c-66U2wyOyWUSYbw",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lwh7ypFMadOoRoJQfFRL0Kx"
   },
   {
     "title": "This is Reality",
     "category": "Special Series",
     "filename": "this-is-reality.json",
-    "thumbnail_url": "images/this-is-reality.jpg",
+    "thumbnail_url": "https://i.ytimg.com/pl_c/PLwwLAokm-4lysFNNd8Y-IMJS-tu5A2x-w/studio_square_thumbnail.jpg?sqp=CKbtoMYG-oaymwEICKoDEPABSFqi85f_AwYIpoDwxQY=&rs=AOn4CLCl4wKjXSeSBouZ30UktKyF1ds4sw",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lysFNNd8Y-IMJS-tu5A2x-w"
   },
   {
     "title": "The Attributes of God",
     "category": "Special Series",
     "filename": "the-attributes-of-god.json",
-    "thumbnail_url": "images/the-attributes-of-god.jpg",
+    "thumbnail_url": "https://i.ytimg.com/pl_c/PLwwLAokm-4lxUq1Ver3iX64mRIc4iuC7h/studio_square_thumbnail.jpg?sqp=CKjcoMYG-oaymwEICKoDEPABSFqi85f_AwYI0PvvxQY=&rs=AOn4CLC1FbeFE7bcWrc1UeHsRLjzyQaVTQ",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxUq1Ver3iX64mRIc4iuC7h"
   },
   {
     "title": "Philippians",
     "category": "Sermon Series",
     "filename": "philippians.json",
-    "thumbnail_url": "images/philippians.jpg",
+    "thumbnail_url": "https://i.ytimg.com/pl_c/PLwwLAokm-4lxpbdtleOH3wz1kw74Pp_4s/studio_square_thumbnail.jpg?sqp=CODsoMYG-oaymwEICKoDEPABSFqi85f_AwYIzYXwxQY=&rs=AOn4CLB-NZcns3qmVOjnhd3ObbQ-MT6ewg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lxpbdtleOH3wz1kw74Pp_4s"
   },
   {
     "title": "Vision Sunday",
     "category": "Special Series",
     "filename": "vision-sunday.json",
-    "thumbnail_url": "images/vision-sunday.jpg",
+    "thumbnail_url": "https://i.ytimg.com/vi/JEGBgLI3iwg/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA3pqe6PRT840Bo9qjZCTJFGVW6hg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lzff0F7yX6PVLldzVaSBB7F"
   },
   {
     "title": "Ruth Equip Class",
     "category": "Special Series",
     "filename": "ruth-equip-class.json",
-    "thumbnail_url": "images/ruth-equip-class.jpg",
+    "thumbnail_url": "https://i.ytimg.com/vi/78iySta6Ms4/hqdefault.jpg?sqp=-oaymwExCOADEI4CSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYZSBTKEUwDw==&rs=AOn4CLCJJcr1GI2SXWPypLA9yqAdIE3xGA",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lyr_TFGlXhQu6JsYeB2kJ_5"
   }
 ]

@@ -1,0 +1,146 @@
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff00;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* 
+ TOP SECTION
+ */
+
+.series-container {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    display: flex;
+    gap: 0px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    transition: all 0.3s ease;
+    scrollbar-width: none;
+}
+
+.series-top-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 16px 0;
+    color: #282828;
+    padding: 0 8px;
+}
+
+.scroll-btn {
+    background: none;
+    border: none;
+    font-size: 36px;
+    font-weight: lighter;
+    color: #bdbdbd;
+    cursor: pointer;
+    padding: 0 8px;
+    z-index: 2;
+}
+.scroll-btn:hover {
+    color: #282828; 
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.0rem;
+  }
+  .scroll-btn .material-icons {
+    font-size: 24px;
+  }
+  .scroll-btn {
+    padding: 0 0px;
+    }
+}
+
+
+
+
+ 
+/* // Series Items */
+.series-item{
+    padding: 8px;
+}
+
+.series-item-thumbnail-container {
+    height: 120px;
+    width:  200px;
+    padding: 0px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0);
+    transition: all 0.3s ease;
+    /* border: 2px solid transparent; */
+    /* border: 2px solid rgb(0, 0, 0, 0); */
+}
+.series-item-thumbnail-container:hover{
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.series-item-thumbnail{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+
+.series-item-thumbnail-container .watch-overlay {
+    position: absolute;
+    font-size: smaller;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 0, 0, 0.964);
+    border-radius: 8px;
+}
+.series-item-thumbnail-container:hover .watch-overlay {
+    opacity: 1;
+}
+
+.series-item-thumbnail-container .watch-overlay-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .series-item-thumbnail-container {
+        width:  180px;
+    }
+}
+@media (max-width: 480px) {
+  .series-item-thumbnail-container {
+    width: 140px;
+    }
+}

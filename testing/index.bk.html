@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reality Honolulu | Sermon Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff00;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: rgb(40, 40, 40);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        .sidebar {
+            background: rgb(40, 40, 40);
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            height: fit-content;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .sidebar-close {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+            border: 1px solid rgb(40,40,40);
+        }
+
+        .playlist-item:hover {
+            background: rgb(65, 65, 65);
+        }
+
+        .playlist-item.active {
+            background: rgb(60, 60, 60);
+            border: 1px solid #939ba1;
+        }
+
+        .playlist-thumbnail {
+            width: 80px;
+            height: 45px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        .playlist-title {
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .playlist-count {
+            font-size: 0.8rem;
+            color: #a0aec0;
+        }
+
+        .content-area {
+            /* background: white; */
+            border-radius: 6px;
+            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
+            padding: 5px;
+        }
+
+        .content-header {
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #626568;
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-top: 0px;
+        }
+        @media (max-width: 768px) {
+           .content-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: #fafafa;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #f2faff;
+        }
+
+        .video-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d4d0cdb8;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        .video-title {
+            font-weight: 600;
+            color: #1c1c1c;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .video-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .video-description {
+            font-size: 0.85rem;
+            color: #718096;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .loading-state, .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #e2e8f0;
+            border-left: 2px solid #1a202c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #e53e3e;
+            background: #fed7d7;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-modal-header {
+            padding: 15px 20px;
+            background: rgb(40, 40, 40);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-video-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .modal-video-player {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        .modal-video-description {
+            padding: 20px;
+            background: #f8fafc;
+            color: #2d3748;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 280px;
+                height: 100vh;
+                overflow-y: auto;
+                z-index: 1000;
+                border-radius: 0;
+                transform: translateX(-100%);
+                padding: 60px 15px 20px 15px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .sidebar-close {
+                display: block;
+            }
+
+            /* Mobile playlist items - thumbnails only */
+            .playlist-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 12px 8px;
+                gap: 8px;
+            }
+
+            .playlist-thumbnail {
+                width: 200px;
+                height: 112px;
+                border-radius: 4px;
+            }
+
+            .playlist-title {
+                font-size: 0.8rem;
+                line-height: 1.2;
+                font-weight: 500;
+            }
+
+            .playlist-count {
+                font-size: 0.7rem;
+                margin-top: 2px;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-video-player {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="mobile-menu-toggle" onclick="toggleSidebar()">Pick Sermon Series</button>
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+        <div class="main-content">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h3 class="sidebar-title">Sermon Series</h3>
+                    <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+                </div>
+                <div id="playlists-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="content-area">
+                <div class="content-header">
+                    <h2 class="content-title" id="content-title">Loading most recent sermons...</h2>
+                </div>
+                <div id="videos-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading videos...</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 class="modal-video-title" id="modal-video-title">Video Title</h3>
+                <button class="close-modal" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <iframe class="modal-video-player" id="modal-video-player" src="" allowfullscreen></iframe>
+            <div class="modal-video-description" id="modal-video-description">
+                Video description will appear here
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // To tell the iframe our size on squarespace side
+        function sendHeight() {
+            parent.postMessage(
+            { frameHeight: document.body.scrollHeight },
+            "*"
+            );
+        }
+
+        window.addEventListener("load", sendHeight);
+        window.addEventListener("resize", sendHeight);
+    </script>
+    <script>
+        console.log('Script loaded');
+        
+        const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/';
+        //const API_BASE_URL = '';
+        const API_PLAYLIST = API_BASE_URL + 'playlists/';
+        let playlists = [];
+        let currentVideos = [];
+
+        function formatDate(isoDateString) {
+            if (!isoDateString) return 'No date';
+            
+            try {
+                const date = new Date(isoDateString);
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            } catch (error) {
+                console.error('Date formatting error:', error);
+                return '';
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+        }
+
+        async function init() {
+            console.log('Init called');
+            try {
+                const response = await fetch(API_BASE_URL + 'index.json');
+                console.log('Response:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error('Network error: ' + response.status);
+                }
+                
+                playlists = await response.json();
+                console.log('Playlists loaded:', playlists);
+                renderPlaylists();
+                
+                // Auto-load "most-recent" playlist after playlists are rendered
+                autoLoadMostRecent();
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to load: ' + error.message);
+            }
+        }
+
+        function autoLoadMostRecent() {
+            console.log('Auto-loading most recent playlist');
+            
+            // Look for "most-recent" playlist (case-insensitive)
+            const mostRecentIndex = playlists.findIndex(playlist => 
+                playlist.filename && playlist.filename.toLowerCase().includes('most-recent')
+            );
+            
+            if (mostRecentIndex !== -1) {
+                console.log('Found most-recent playlist at index:', mostRecentIndex);
+                selectPlaylist(mostRecentIndex);
+            } else {
+                // Fallback: load the first playlist if "most-recent" not found
+                console.log('Most-recent playlist not found, loading first playlist');
+                if (playlists.length > 0) {
+                    selectPlaylist(0);
+                } else {
+                    document.getElementById('content-title').textContent = 'No sermon series available';
+                    document.getElementById('videos-container').innerHTML = '<div class="empty-state"><h3>No sermon series found</h3></div>';
+                }
+            }
+        }
+
+        function renderPlaylists() {
+            console.log('Rendering playlists');
+            const container = document.getElementById('playlists-container');
+            
+            if (!playlists || playlists.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No series found</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            for (let i = 0; i < playlists.length; i++) {
+                const playlist = playlists[i];
+                
+                console.log('Playlist', i, 'thumbnail URL from JSON:', playlist.thumbnail_url);
+                
+                const playlistItem = document.createElement('div');
+                playlistItem.className = 'playlist-item';
+                playlistItem.addEventListener('click', function() { selectPlaylist(i); });
+                
+                const img = document.createElement('img');
+                img.src = API_BASE_URL + playlist.thumbnail_url;
+                img.className = 'playlist-thumbnail';
+                img.onerror = function() { 
+                    console.log('Playlist image FAILED to load. Attempted URL:', this.src);
+                    this.style.display = 'none'; 
+                };
+                img.onload = function() {
+                    console.log('Playlist image loaded successfully:', this.src);
+                };
+                
+                const infoDiv = document.createElement('div');
+                
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'playlist-title';
+                titleDiv.textContent = playlist.title;
+                
+                const countDiv = document.createElement('div');
+                countDiv.className = 'playlist-count';
+                countDiv.textContent = 'Loading...';
+                
+                infoDiv.appendChild(titleDiv);
+                infoDiv.appendChild(countDiv);
+                playlistItem.appendChild(img);
+                playlistItem.appendChild(infoDiv);
+                container.appendChild(playlistItem);
+            }
+            
+            loadCounts();
+        }
+
+        async function loadCounts() {
+            console.log('Loading video counts');
+            for (let i = 0; i < playlists.length; i++) {
+                try {
+                    const response = await fetch(API_PLAYLIST + playlists[i].filename);
+                    if (response.ok) {
+                        const videos = await response.json();
+                        const countElements = document.querySelectorAll('.playlist-count');
+                        if (countElements[i]) {
+                            countElements[i].textContent = videos.length + ' videos';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Count error for playlist', i, ':', error);
+                }
+            }
+        }
+
+        async function selectPlaylist(index) {
+            console.log('Selected playlist:', index);
+            
+            // Update active state
+            document.querySelectorAll('.playlist-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelectorAll('.playlist-item')[index].classList.add('active');
+
+            // Close mobile sidebar
+            closeSidebar();
+            
+            // Update title
+            document.getElementById('content-title').textContent = playlists[index].title;
+            
+            // Show loading
+            document.getElementById('videos-container').innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Loading videos...</p></div>';
+
+            try {
+                const response = await fetch(API_PLAYLIST + playlists[index].filename);
+                if (!response.ok) throw new Error('Failed to load videos');
+                
+                currentVideos = await response.json();
+                renderVideos();
+            } catch (error) {
+                console.error('Video loading error:', error);
+                showError('Failed to load videos');
+            }
+        }
+
+        function renderVideos() {
+            console.log('Rendering videos');
+            const container = document.getElementById('videos-container');
+            
+            if (currentVideos.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No videos found</h3></div>';
+                return;
+            }
+
+            const videosGrid = document.createElement('div');
+            videosGrid.className = 'videos-grid';
+            
+            for (let i = 0; i < currentVideos.length; i++) {
+                const video = currentVideos[i];
+                
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.addEventListener('click', function() {
+                    playVideo(i);
+                });
+                
+                const img = document.createElement('img');
+                img.src = video.thumbnail_url;
+                img.className = 'video-thumbnail';
+                img.onerror = function() { 
+                    console.log('Video image failed to load:', this.src);
+                    this.style.display = 'none'; 
+                };
+                
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'video-info';
+                
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'video-title';
+                titleDiv.textContent = video.title;
+                
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'video-date';
+                dateDiv.textContent = formatDate(video.date);
+                
+                const descDiv = document.createElement('div');
+                descDiv.className = 'video-description';
+                // descDiv.textContent = video.description ? video.description.substring(0, 50) + '...' : 'No description';
+                descDiv.textContent = video.description ? video.description.substring(0, 50) + '...' : '';
+                
+                infoDiv.appendChild(titleDiv);
+                infoDiv.appendChild(dateDiv);
+                infoDiv.appendChild(descDiv);
+                videoCard.appendChild(img);
+                videoCard.appendChild(infoDiv);
+                videosGrid.appendChild(videoCard);
+            }
+            
+            container.innerHTML = '';
+            container.appendChild(videosGrid);
+        }
+
+        function playVideo(index) {
+            console.log('Playing video:', index);
+            const video = currentVideos[index];
+            let videoId = video.video_id;
+            
+            // Extract video ID from link if video_id is not present
+            if (!videoId && video.link) {
+                const match = video.link.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+                if (match) videoId = match[1];
+            }
+            
+            const modal = document.getElementById('video-modal');
+            const modalPlayer = document.getElementById('modal-video-player');
+            const modalTitle = document.getElementById('modal-video-title');
+            const modalDescription = document.getElementById('modal-video-description');
+            
+            if (modal && modalPlayer && modalTitle && modalDescription) {
+                modalTitle.textContent = video.title;
+                modalDescription.textContent = video.description || 'No description available.';
+                
+                if (videoId) {
+                    modalPlayer.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+                } else {
+                    modalPlayer.src = '';
+                    modalDescription.textContent = 'Video not available - ' + (video.description || 'No description available.');
+                }
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const modalPlayer = document.getElementById('modal-video-player');
+            
+            if (modal && modalPlayer) {
+                modal.classList.remove('active');
+                modalPlayer.src = '';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Make sure the function is globally available
+        window.closeVideoModal = closeVideoModal;
+
+        // Close modal when clicking outside or pressing escape
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('video-modal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeVideoModal();
+                    }
+                });
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+
+        function showError(message) {
+            document.getElementById('videos-container').innerHTML = '<div class="error-message">' + message + '</div>';
+        }
+
+        init();
+    </script>
+</body>
+</html>
