@@ -1,6 +1,6 @@
 
-// const API_BASE_URL = './';
-const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/';
+// const API_BASE_URL = './data';
+const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/data';
 
 const API_PLAYLIST = API_BASE_URL + 'playlists/';
 
@@ -52,7 +52,7 @@ async function init() {
         if(series.title == "Most Recent") return;
         const tmpl = document.getElementById("video-thumbnail-template");
         const clone = tmpl.content.cloneNode(true);
-        clone.querySelector("img").src = series.thumbnail_url;
+        clone.querySelector("img").src = API_BASE_URL + series.thumbnail_url;
         clone.querySelector("img").alt = series.title;
         // clone.querySelector("h4").textContent = series.title;
         document.getElementById("most-recent-sermons-thumbnail-list-container").appendChild(clone);

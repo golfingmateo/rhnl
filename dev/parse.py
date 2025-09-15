@@ -79,6 +79,7 @@ def get_channel_json():
     # Get all playlists from channel
     cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{CHANNEL_URL}/playlists"]
     playlist_data = run_command(cmd_playlists)
+    images = os.listdir(f'{FOLDER_ROOT}/images/')
 
     os.makedirs("playlists", exist_ok=True)
     # Process only target playlists
@@ -90,7 +91,7 @@ def get_channel_json():
             # if is_in_playlist(playlist_title):
             category = playlist_category(playlist_title)
             if category:
-                thumbnail = f'images/{filename}.jpg'
+                thumbnail = f'/images/{filename}.jpg'
                 if not os.path.exists(f'{FOLDER_ROOT}/{thumbnail}'):
                     thumbnail = item.get('thumbnails', [{}])[-1].get('url')
                 playlist = {

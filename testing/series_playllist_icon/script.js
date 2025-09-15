@@ -1,5 +1,5 @@
-// const API_BASE_URL = '../../docs/';
-const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/';
+const API_BASE_URL = '../../docs/';
+// const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/';
 
 const API_PLAYLIST = API_BASE_URL + 'playlists/';
 
