@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Head / Includes
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Reality Honolulu | Sermon Library</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/css/styles.css">
+    
+    <!-- <link rel="stylesheet" href="./css/styles.css"> -->
+
+    <!-- Dynamic LOAD CSS FILE local vs github
+    <script>
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const cssPath = isDev ? 'styles.css' : 'https://cdn.jsdelivr.net/gh/yourusername/yourrepo@main/styles.css';
+        
+        // Create and append the stylesheet link
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = cssPath;
+        document.head.appendChild(link);
+    </script> -->
+
+</head>
+
+
+
+<!-- Body Start
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<body>
+
+    <div class="grid-container">
+
+
+        <!-- Content Section -->
+        <section class="content-section">
+           <section id="most-recent-sermons-section">
+            <h2>Most Recent Sermons</h2>
+                <div id="most-recent-sermons-thumbnail-list-container" class="grid-gallery">
+                    
+                    <!-- Populated by script -->
+                    <template id="video-thumbnail-template">
+                    <!-- video-thumbnail-template -->
+                        <div class="thumbnail-container">  
+                            <div class="stacked" id="video-thumbnail">
+                                <img src="" alt="">
+                                    <div class="transparent-overlay"> </div>
+                                    <h4 class="overlay-title">Watch</h4>
+                            </div>
+                        </div>
+                    <!-- video-thumbnail-template -->
+                    </template>
+
+
+
+                </div>
+           </section>
+
+           <section id="series-sermon-section">
+           </section>
+
+           <section id="series-other-section">
+           </section>
+          
+        </section>
+
+        <section class="video_player-section" id="video_player-section">
+            <div class="video-player" id="video-player">
+                <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+    </div>
+
+
+    <!-- Templates -->
+   
+
+    <template id="video-sidescroll_section-template">
+        <h1 id="video-thumbnail-title">Title</h1>
+        <div class="series-scroll-wrapper">
+            <button class="scroll-btn" id="scroll-btn-left"><span class="material-icons">chevron_left</span></button>
+            <button class="scroll-btn" id="scroll-btn-right"><span class="material-icons">chevron_right</span></button>
+        </div>
+    </template>     
+    
+
+    <template id="series-template">
+        <div class="playlist-item">
+            <div class="playlist-item-thumbnail-container">
+                <img src="" alt="title" class="playlist-item-thumbnail">
+                <div class="watch-overlay">▶ Watch</div>
+            </div>
+            <p class="playlist-item-title">Title</p>
+            <p class="playlist-item-date">Date</p>
+        </div>
+
+    </template>
+    <!-- Load Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/main.js" defer></script>
+    
+</body>
+</html>

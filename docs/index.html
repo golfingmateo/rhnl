@@ -14,9 +14,10 @@
     <title>Reality Honolulu | Sermon Library</title>
   
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-   
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/css/styles.css">
-    
+
     <!-- <link rel="stylesheet" href="./css/styles.css"> -->
 
     <!-- Dynamic LOAD CSS FILE local vs github
@@ -42,52 +43,108 @@
 
 <body>
 
-    <div class="grid-container">
+    <!-- <div id="breadcrumb">  </div> -->
 
-
-        <!-- Content Section -->
-        <section class="content-section">
-           <section id="most-recent-sermons-section">
-            <h2>Most Recent Sermons</h2>
-                <div id="most-recent-sermons-thumbnail-list-container" class="grid-gallery">
-                    
-                    <!-- Populated by script -->
-                    <template id="video-thumbnail-template">
-                    <!-- video-thumbnail-template -->
-                        <div class="thumbnail-container">  
-                            <div class="stacked" id="video-thumbnail">
-                                <img src="" alt="">
-                                    <div class="transparent-overlay"> </div>
-                                    <h4 class="overlay-title">Watch</h4>
-                            </div>
-                        </div>
-                    <!-- video-thumbnail-template -->
-                    </template>
-
-
-
-                </div>
-           </section>
-
-           <section id="series-sermon-section">
-           </section>
-
-           <section id="series-other-section">
-           </section>
-          
-        </section>
-
-        <section class="video_player-section" id="video_player-section">
-            <div class="video-player" id="video-player">
-                <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
-
-    </div>
+    <div id="main"> </div>
+    
+    <!-- <div class="grid-container" id="grid-container"> -->
 
 
     <!-- Templates -->
-   
+
+    <!-- Page Templates -->
+    <template id="main-page-template">
+        <div class="main-page">
+            <h1>Main Page</h1>
+        </div>
+    </template>
+
+    <template id="sermon-template">
+        <div id="return">   
+            <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+        </div>
+        <div class="sermon-page">
+            <h1>Sermon Title</h1>
+        </div>
+    </template>
+
+
+    <template id="series-template">
+        <div id="return">   
+            <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+        </div>
+        <div class="series-page">
+            <h1>Series Title</h1>
+            <div id="sermons-container" class="grid-gallery">
+                <!-- Populated by script -->
+                <!-- video-thumbnail-template -->
+            </div>
+        </div>
+    </template>
+
+    <!-- Section Templates -->
+    <template id="livestream-template">
+        <section class="livestream-section">
+            <div id="livestream-container">
+                <h2>Live Stream</h2>
+                    <div id="placeholder">
+                        <h4>Our livestream is available here every Sunday starting around 10:30am</h4>
+                    </div>
+                <template id="video-sidescroll_section-template">
+                    <div id="livestream-video">
+                        <iframe 
+                            src="https://www.youtube.com/embed/live_stream?channel=UCC1I2rNY2tiUZUFft4SVj2A" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </template>
+            </div>
+        </section>
+    </template>
+
+
+
+    <template id="recent-sermons-template">
+        <h2>Most Recent Sermons</h2>
+        <div id="recent-sermons-container" class="scroll-gallery">
+            <!-- Populated by script -->
+            <!-- <template id="video-thumbnail-template"> -->
+        </div>
+    </template>
+
+
+    <template id="recent-series-template">
+        <h2>Most Recent Series</h2>
+        <div id="recent-series-container" class="scroll-gallery">
+            <!-- Populated by script -->
+            <!-- series-thumbnail-template -->
+        </div>
+    </template>
+
+    <template id="special-series-template">
+        <h2>Special Series</h2>
+        <div id="special-series-container" class="scroll-gallery">
+            <!-- Populated by script -->
+            <!-- series-thumbnail-template -->
+        </div>
+    </template>
+
+
+    <!-- Component Templates -->
+    <template id="series-thumbnail-template">
+        <div class="thumbnail-container">  
+            <div class="stacked" id="video-thumbnail">
+                <img src="" alt="">
+                    <div class="transparent-overlay"> </div>
+                    <h4 class="overlay-title">Watch</h4>
+            </div>
+        </div>
+    </template>
+
+
+
 
     <template id="video-sidescroll_section-template">
         <h1 id="video-thumbnail-title">Title</h1>
@@ -98,7 +155,7 @@
     </template>     
     
 
-    <template id="series-template">
+    <template id="series-template-old">
         <div class="playlist-item">
             <div class="playlist-item-thumbnail-container">
                 <img src="" alt="title" class="playlist-item-thumbnail">
@@ -107,10 +164,36 @@
             <p class="playlist-item-title">Title</p>
             <p class="playlist-item-date">Date</p>
         </div>
-
     </template>
+
+
+
+    <template id="video-thumbnail-template">
+        <div class="video-container">  
+            <div class="thumbnail-container">  
+                <div class="stacked" id="video-thumbnail">
+                    <div class="thumbnail-content">
+                        <div>
+                            <img src="" alt="">
+                        </div>
+                        <div>
+                            <div class="thumbnail-info">  
+                                <h4 class="thumbnail-title">Title</h4>
+                                <!-- <p class="thumbnail-date">Date</p> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transparent-overlay"> </div>
+                    <h4 class="overlay-title">Watch</h4>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
     <!-- Load Scripts -->
-    <script src="js/main.js" defer></script>
+     <!--  <script src="js/main.js" defer></script>  -->
+    <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/main.js" defer></script>
     
 </body>
 </html>

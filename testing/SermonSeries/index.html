@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Head / Includes
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Reality Honolulu | Sermon Library</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../docs/css/styles.css">
+
+</head>
+
+
+
+<!-- Body Start
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<body>
+
+    <div class="grid-container" id="grid-container">
+
+
+
+
+    </div>
+
+
+    <!-- Templates -->
+
+
+    <!-- Page Templates -->
+
+
+
+
+
+    <!-- Component Templates -->
+    <template id="video-thumbnail-template">
+    <!-- video-thumbnail-template -->
+        <div class="video-container">  
+        <div class="thumbnail-container">  
+            <div class="stacked" id="video-thumbnail">
+                <div class="thumbnail-content">
+                    <div>
+                        <img src="" alt="">
+                    </div>
+                    <div>
+                        <div class="thumbnail-info">  
+                            <h4 class="thumbnail-title">Title</h4>
+                            <!-- <p class="thumbnail-date">Date</p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="transparent-overlay"> </div>
+                <h4 class="overlay-title">Watch</h4>
+            </div>
+        </div>
+    </div>
+    <!-- video-thumbnail-template -->
+    </template>
+    
+
+    <template id="video-sidescroll_section-template">
+        <h1 id="video-thumbnail-title">Title</h1>
+        <div class="series-scroll-wrapper">
+            <button class="scroll-btn" id="scroll-btn-left"><span class="material-icons">chevron_left</span></button>
+            <button class="scroll-btn" id="scroll-btn-right"><span class="material-icons">chevron_right</span></button>
+        </div>
+    </template>     
+    
+
+    <template id="series-template">
+        <div class="playlist-item">
+            <div class="playlist-item-thumbnail-container">
+                <img src="" alt="title" class="playlist-item-thumbnail">
+                <div class="watch-overlay">▶ Watch</div>
+            </div>
+            <p class="playlist-item-title">Title</p>
+            <p class="playlist-item-date">Date</p>
+        </div>
+
+    </template>
+    <!-- Load Scripts -->
+    <script>
+
+        
+        const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/data/';
+        const API_PLAYLIST = API_BASE_URL + 'playlists/';
+
+        async function populate(){
+            const container = document.getElementById("grid-container");
+
+            const response = await fetch( API_PLAYLIST + '/mark.json');
+            const sermons = await response.json();
+            sermons.forEach(sermon => {
+                const template = document.getElementById("video-thumbnail-template");
+                const clone = document.importNode(template.content, true);
+               clone.querySelector("img").src = sermon.thumbnail_url;
+                clone.querySelector("img").alt = sermon.title;
+                clone.querySelector(".thumbnail-title").textContent = sermon.title;
+                container.appendChild(clone);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            populate();
+        });
+
+    </script>
+    
+</body>
+</html>
