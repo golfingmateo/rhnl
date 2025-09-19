@@ -8,10 +8,21 @@ body {
     line-height: 1.6;
 }
 
-h2 { font-weight: 500; }
+h1 { font-weight: 800;
+    @media (max-width: 600px) {
+        font-size: 1.2rem;
+    }
+}
+
+h2 { font-weight: 500;
+    @media (max-width: 600px) {
+        font-size: 1.1rem;
+    }
+}
 
 h4 { font-weight: 400; }
     
+
 img {
     width: 320px; height: 180px; 
     /* height: 100%;
@@ -19,9 +30,33 @@ img {
     object-fit: cover;
 }
 
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.series-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.series-page h1 {
+  text-align: center;
+  width: 100%;
+}
+
 .grid-gallery{
     /* display: grid; */
     /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    align-items: stretch;
     gap: 16px;
     padding: 8px;
     > * { 
@@ -33,6 +68,14 @@ img {
         flex-shrink: 0;
         width: 320px; height: 240px;
     }
+}
+
+#sermons-container.grid-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
 }
 
 .scroll-gallery{
@@ -108,14 +151,12 @@ img {
 /* } */
 
 
-.video-container{  padding: 8px 8px; }
- /* .video-container{ */
-    /* height: 320px; */
-    /* padding: 16px 0px; */
-    /* border-radius:  8px;  */
-    /* box-shadow: 0 2px 8px rgba(0,0,0,0.2); */
-/* }  */
-
+.video-container{  
+  padding: 8px 8px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .thumbnail-content{
     width: 320px;
@@ -138,6 +179,8 @@ img {
     /* padding: 8px; */
     max-width: 100%;
     white-space: nowrap;
+    text-align: center;
+    width: 100%;
 }
 
 
@@ -188,4 +231,39 @@ a:hover {
     color: #ffffff;
     transform: translateY(-2px) scale(1.01);
     box-shadow: 0 4px 16px rgba(30, 64, 175, 0.15);
+}
+
+.responsive-video {
+    position: relative;
+
+    /* 16:9 aspect ratio */
+    padding-bottom: 56.25%; 
+
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.responsive-video iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border: 0;
+}
+
+.sermon-page{
+    max-width: 800px;
+    margin: auto;
+    padding-bottom: 32px;
+}
+
+.sermon-description {
+    margin-top: 32px;
+    padding: 16px 0 0 0;
+}
+
+.return {
+   padding-bottom: 16px;
 }

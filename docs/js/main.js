@@ -1,4 +1,3 @@
-
 // const API_BASE_URL = './data';
 const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/data/';
 
@@ -174,6 +173,7 @@ async function addSermonThumbnail(sermon, container){
     clickable.addEventListener("click", () => { showSermon(sermon); });
     container.appendChild(clone);
 }
+
 async function populateRecentSermons(){
     const series = await  fetchJson( API_BASE_URL + '/index.json');
     const most_recent = series.find(sermon => sermon.title === "Most Recent");
@@ -262,36 +262,30 @@ async function showSermon(sermon){
     main.innerHTML = ''; // Clear previous content
 
     const sermonPage = document.getElementById("sermon-template").content.cloneNode(true);
+
     sermonPage.querySelector("h1").textContent = sermon.title;
-    main.appendChild(sermonPage);
-    const returnButton = document.getElementById("return-button");
+
+    // Set the video iframe src and title in the template using id
+    const iframe = sermonPage.getElementById("sermon-video");
+    iframe.src = `https://www.youtube.com/embed/${sermon.video_id}`;
+    iframe.title = sermon.title;
+
+    // Add Sermon description text
+    const sermonDescription = sermonPage.getElementById("sermon-description");
+    sermonDescription.innerHTML = `<p>${sermon.description}</p>`;
+
+    
+
+    // Add event listener to return button
+    const returnButton = sermonPage.getElementById("return-button");
     returnButton.addEventListener("click", (e) => {
         e.preventDefault();
         showMainPage();
     });
-    // Add Video Player
-    const videoContainer = document.createElement("div");
-    videoContainer.className = "video-player-container";
-    videoContainer.innerHTML = `
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/${sermon.video_id}" 
-        title="${sermon.title}" frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen></iframe>
-    `;
-    main.appendChild(videoContainer);
 
-    // Add Sermon description text
-    if(sermon.description){
-        const desc = document.createElement("div");
-        desc.className = "sermon-description";
-        desc.innerHTML = `<p>${sermon.description}</p>`;
-        main.appendChild(desc);
-    }
-    
-
+    main.appendChild(sermonPage);
     // Scroll to top
-    window.scrollTo(0, 0);
-
+    // window.scrollTo(0, 0);
 }
 
 

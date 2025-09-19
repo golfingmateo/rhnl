@@ -59,24 +59,33 @@
     </template>
 
     <template id="sermon-template">
-        <div id="return">   
-            <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
-        </div>
         <div class="sermon-page">
-            <h1>Sermon Title</h1>
+            <div class="return">   
+                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+            </div>
+           
+            <div class="responsive-video">
+                <iframe id="sermon-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+             <h1>Sermon Title</h1>
+            <div id="sermon-description">
+                <p>Sermon Description</p>
+            </div>
         </div>
     </template>
 
 
     <template id="series-template">
-        <div id="return">   
-            <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
-        </div>
-        <div class="series-page">
-            <h1>Series Title</h1>
-            <div id="sermons-container" class="grid-gallery">
-                <!-- Populated by script -->
-                <!-- video-thumbnail-template -->
+        <div class="centered"></div>
+            <div id="return">   
+                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+            </div>
+            <div class="series-page">
+                <h1>Series Title</h1>
+                <div id="sermons-container" class="grid-gallery">
+                    <!-- Populated by script -->
+                    <!-- video-thumbnail-template -->
+                </div>
             </div>
         </div>
     </template>
