@@ -1,6 +1,21 @@
 /* 
     Default element styles
  */
+
+ :root {
+
+  --thumbnail-width: 320px;
+  --thumbnail-height: 180px;
+  @media (max-width: 768px) {
+    --thumbnail-width: 240px;
+    --thumbnail-height: 135px;
+  }
+  @media (max-width: 480px) {
+    --thumbnail-width: 180px;
+    --thumbnail-height: 101px;
+  }
+}
+
 body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #ffffff00;
@@ -24,7 +39,8 @@ h4 { font-weight: 400; }
     
 
 img {
-    width: 320px; height: 180px; 
+    width: var(--thumbnail-width);
+    height: var(--thumbnail-height);
     /* height: 100%;
     width:  100%;   */
     object-fit: cover;
@@ -66,7 +82,8 @@ img {
         /* width: 100%; */
         /* height: auto; */
         flex-shrink: 0;
-        width: 320px; height: 240px;
+        width: var(--thumbnail-width);
+        height: var(--thumbnail-height);
     }
 }
 
@@ -159,10 +176,10 @@ img {
 }
 
 .thumbnail-content{
-    width: 320px;
-    height: 240px;
-    /* margin: 8px; */
-    /* padding: 8px; */
+    width: var(--thumbnail-width);
+    height: var(--thumbnail-height);
+    margin: 8px;
+    padding: 8px;
 }
 .thumbnail-info{
     padding: 0px 4px;
@@ -171,7 +188,7 @@ img {
 .thumbnail-title{
     /* font-weight: 600; */
     /* font-size: 1rem; */
-    /* margin: 0; */
+    margin: 0;
     /* width: 320px; */
     color: #515151;
     overflow: hidden;
@@ -181,6 +198,9 @@ img {
     white-space: nowrap;
     text-align: center;
     width: 100%;
+    z-index: 2;
+    position: relative;
+
 }
 
 
