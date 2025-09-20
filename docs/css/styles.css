@@ -4,16 +4,18 @@
 
  :root {
 
-  --thumbnail-width: 320px;
-  --thumbnail-height: 180px;
+  --thumbnail-width: 800px;
+  --thumbnail-height: 450px;
+
   @media (max-width: 768px) {
-    --thumbnail-width: 240px;
-    --thumbnail-height: 135px;
+    --thumbnail-width: 512px;
+    --thumbnail-height: 288px;
   }
+
   @media (max-width: 480px) {
-    --thumbnail-width: 180px;
-    --thumbnail-height: 101px;
-  }
+    --thumbnail-width: 256px;
+    --thumbnail-height: 144px;
+
 }
 
 body {
@@ -24,19 +26,32 @@ body {
 }
 
 h1 { font-weight: 800;
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
         font-size: 1.2rem;
     }
-}
-
-h2 { font-weight: 500;
-    @media (max-width: 600px) {
+    @media (max-width: 480px) {
         font-size: 1.1rem;
     }
 }
 
-h4 { font-weight: 400; }
-    
+h2 { font-weight: 500;
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+    }
+    @media (max-width: 480px) {
+        font-size: 1.0rem;
+    }
+}
+
+h4 { 
+    font-weight: 400; 
+    @media (max-width: 768px) {
+        font-size: 1.0rem;
+    }
+    @media (max-width: 480px) {
+        font-size: 0.9rem;
+    }
+}
 
 img {
     width: var(--thumbnail-width);
@@ -91,7 +106,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
+  gap: 64px;
   width: 100%;
 }
 
@@ -154,7 +169,7 @@ img {
 
 #video-thumbnail:hover{
 /* .thumbnail-container:hover{ */
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-0.1px) scale(1.01);
     outline: 1px solid rgba(0, 0, 0, 0.5);
 
     .transparent-overlay{  opacity: 1; }
@@ -169,7 +184,7 @@ img {
 
 
 .video-container{  
-  padding: 8px 8px; 
+  padding: 8px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -177,12 +192,12 @@ img {
 
 .thumbnail-content{
     width: var(--thumbnail-width);
-    height: var(--thumbnail-height);
-    margin: 8px;
-    padding: 8px;
+    /* height: calc(var(--thumbnail-height) * 1.2); */
+    /* margin: 8px; */
+    /* padding: 8px; */
 }
 .thumbnail-info{
-    padding: 0px 4px;
+    padding: 8px;
     /* background: red; */
 }
 .thumbnail-title{
@@ -227,17 +242,19 @@ a:hover {
 }
 
 #return-button {
+  width: 100%;
+  box-sizing: border-box;
   background: linear-gradient(90deg, #1c1c1c 0%, #000000 100%);
   border: none;
   color: #eeeeee;
-  padding: 6px 42px;
+  /* padding: 6px 42px; */
   text-align: center;
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   font-size: 12px;
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 2px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
@@ -249,8 +266,13 @@ a:hover {
 #return-button:hover {
     background: linear-gradient(90deg, #434343 0%, #3c3c3c 100%);
     color: #ffffff;
-    transform: translateY(-2px) scale(1.01);
+    transform: translateY(-0.1px) scale(1.001);
     box-shadow: 0 4px 16px rgba(30, 64, 175, 0.15);
+}
+
+.return {
+   padding-bottom: 16px;
+   width: 100%;
 }
 
 .responsive-video {
@@ -274,7 +296,7 @@ a:hover {
 }
 
 .sermon-page{
-    max-width: 800px;
+    /* max-width: var(--thumbnail-width); */
     margin: auto;
     padding-bottom: 32px;
 }
@@ -282,8 +304,4 @@ a:hover {
 .sermon-description {
     margin-top: 32px;
     padding: 16px 0 0 0;
-}
-
-.return {
-   padding-bottom: 16px;
 }

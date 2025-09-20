@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/css/styles.css?v=0000001">
     <!-- <link rel="stylesheet" href="./css/styles.css"> -->
 
     <!-- Dynamic LOAD CSS FILE local vs github
@@ -44,53 +44,15 @@
 
     <!-- <div id="breadcrumb">  </div> -->
 
-    <div id="main"> </div>
+    <div id="main"> 
+        <!-- Content injected by script -->
+    </div>
     
-    <!-- <div class="grid-container" id="grid-container"> -->
-
 
     <!-- Templates -->
 
-    <!-- Page Templates -->
-    <template id="main-page-template">
-        <div class="main-page">
-            <h1>Main Page</h1>
-        </div>
-    </template>
-
-    <template id="sermon-template">
-        <div class="sermon-page">
-            <div class="return">   
-                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
-            </div>
-           
-            <div class="responsive-video">
-                <iframe id="sermon-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-             <h1>Sermon Title</h1>
-            <div id="sermon-description">
-                <p>Sermon Description</p>
-            </div>
-        </div>
-    </template>
-
-
-    <template id="series-template">
-        <div class="centered"></div>
-            <div id="return">   
-                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
-            </div>
-            <div class="series-page">
-                <h1>Series Title</h1>
-                <div id="sermons-container" class="grid-gallery">
-                    <!-- Populated by script -->
-                    <!-- video-thumbnail-template -->
-                </div>
-            </div>
-        </div>
-    </template>
-
-    <!-- Section Templates -->
+    <!-- Main Page is built from script:  -->
+    <!-- livestream, recent-sermons, recent-series, special-series  -->
     <template id="livestream-template">
         <section class="livestream-section">
             <div id="livestream-container">
@@ -112,35 +74,69 @@
         </section>
     </template>
 
-
-
     <template id="recent-sermons-template">
         <h2>Most Recent Sermons</h2>
         <div id="recent-sermons-container" class="scroll-gallery">
-            <!-- Populated by script -->
-            <!-- <template id="video-thumbnail-template"> -->
+            <!--  Populated by script: <template id="video-thumbnail-template"> -->
         </div>
     </template>
-
 
     <template id="recent-series-template">
         <h2>Most Recent Series</h2>
         <div id="recent-series-container" class="scroll-gallery">
-            <!-- Populated by script -->
-            <!-- series-thumbnail-template -->
+            <!-- Populated by script: series-thumbnail-template -->
         </div>
     </template>
 
     <template id="special-series-template">
         <h2>Special Series</h2>
         <div id="special-series-container" class="scroll-gallery">
-            <!-- Populated by script -->
-            <!-- series-thumbnail-template -->
+            <!-- Populated by script: series-thumbnail-template -->
+        </div>
+    </template>
+
+    <!-- End of Main Page templates -->
+
+    <!-- Template to watch sermon video -->
+    <template id="sermon-template">
+        <div class="sermon-page">
+            <div class="return">   
+                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+            </div>
+           
+            <div class="responsive-video">
+                <iframe id="sermon-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+             <h1>Sermon Title</h1>
+            <div id="sermon-description">
+                <p>Sermon Description</p>
+            </div>
         </div>
     </template>
 
 
-    <!-- Component Templates -->
+
+    <!-- Template to show series of sermon videos -->
+    <template id="series-template">
+        <div class="centered"></div>
+            <div id="return">   
+                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+            </div>
+            <div class="series-page">
+                <h1>Series Title</h1>
+                <div id="sermons-container" class="grid-gallery">
+                    <!-- Populated by script -->
+                    <!-- video-thumbnail-template -->
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Section Templates -->
+    
+
+
+    <!-- Shared Component Templates
     <template id="series-thumbnail-template">
         <div class="thumbnail-container">  
             <div class="stacked" id="video-thumbnail">
@@ -152,8 +148,6 @@
     </template>
 
 
-
-
     <template id="video-sidescroll_section-template">
         <h1 id="video-thumbnail-title">Title</h1>
         <div class="series-scroll-wrapper">
@@ -162,17 +156,6 @@
         </div>
     </template>     
     
-
-    <template id="series-template-old">
-        <div class="playlist-item">
-            <div class="playlist-item-thumbnail-container">
-                <img src="" alt="title" class="playlist-item-thumbnail">
-                <div class="watch-overlay">▶ Watch</div>
-            </div>
-            <p class="playlist-item-title">Title</p>
-            <p class="playlist-item-date">Date</p>
-        </div>
-    </template>
 
 
 
@@ -201,7 +184,7 @@
 
     <!-- Load Scripts -->
       <!-- <script src="js/main.js" defer></script>  -->
-    <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/main.js?v=0000001" defer></script>
     
 </body>
 </html>
