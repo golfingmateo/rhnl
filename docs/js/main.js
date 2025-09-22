@@ -173,37 +173,6 @@ async function showSermon(sermon){
     // window.scrollTo(0, 0);
 }
 
-async function showLiveStream(){
-    // Get the current time in Hawaii
-    const hawaiiTime = new Date(
-        new Date().toLocaleString("en-US", { timeZone: "Pacific/Honolulu" })
-    );
-
-    const day = hawaiiTime.getDay(); // 0 = Sunday
-    const hours = hawaiiTime.getHours();
-    const minutes = hawaiiTime.getMinutes();
-
-     // Convert to minutes since midnight
-    const currentTime = hours * 60 + minutes;
-    const startTime = 10 * 60 + 30; // 10:30 AM
-    const endTime = 12 * 60 + 30;   // 12:30 PM
-
-    console.log(`Hawaii Time: ${hawaiiTime}, Day: ${day}, Current Time: ${currentTime}`);
-    const container = document.getElementById("livestream-container");
-    if (day === 0 && currentTime >= startTime && currentTime <= endTime) {
-        // showVideo();
-        // console.log('Show Live Stream');
-        const tmpl = document.getElementById("active_livestream-template");
-        const clone = tmpl.content.cloneNode(true);
-        container.appendChild(clone);
-        document.getElementById("placeholder").hidden = true;
-    } else {
-        document.getElementById("placeholder").hidden = false;
-        // hideVideo();
-
-    }
-}
-
 /*
 LOGIC:
     - Show Main Page (Most Recent Sermons, Most Recent Series, Live Stream)
