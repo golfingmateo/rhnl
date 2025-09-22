@@ -57,11 +57,30 @@ h4 {
 img {
     width: var(--thumbnail-width);
     height: var(--thumbnail-height);
-    /* height: 100%;
-    width:  100%;   */
     object-fit: cover;
 }
 
+
+.livestream-video {
+  width: var(--thumbnail-width);
+  height: var(--thumbnail-height);
+  object-fit: cover;
+  margin: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+
+  iframe {
+    width: var(--thumbnail-width);
+    height: var(--thumbnail-height);
+    border: none;
+    border-radius: 8px;
+  }
+}
+
+.font{
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+}
 .centered {
   display: flex;
   flex-direction: column;
@@ -305,4 +324,20 @@ a:hover {
 .sermon-description {
     margin-top: 32px;
     padding: 16px 0 0 0;
+}
+
+/* #main{
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 16px;
+  color: #ffffff;
+  > * {
+       color: #ffffff;
+    }
+} */
+
+.outside{
+    max-width:  1200px;
+    margin: auto;
+    padding: 16px;
 }

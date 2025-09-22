@@ -31,9 +31,9 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    # "Mark",
+    "Mark",
     # "The Parables of Jesus",
-    "This is Reality",
+    # "This is Reality",
     # "The Attributes of God",
     # "Philippians",
     # "Vision Sunday",
@@ -41,7 +41,7 @@ REFRESH_PLAYLIST = [
 ]
 
 # PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
-# REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
+REFRESH_PLAYLIST = [p.lower().strip() for p in REFRESH_PLAYLIST]
 
 def playlist_category(playlist_title):
     for title, category in PLAYLISTS.items():
@@ -52,8 +52,8 @@ def is_in_playlist(title):
     return any(target.lower() == title.lower() for target in PLAYLISTS.keys())
 
 def is_in_refreshlist(title):
-    return False
-    # return any(target == title.lower() for target in REFRESH_PLAYLIST)
+    # return False
+    return any(target == title.lower() for target in REFRESH_PLAYLIST)
 
 def save_json(filename, data):
     with open(filename, "w", encoding='utf-8') as f:
