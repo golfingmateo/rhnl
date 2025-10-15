@@ -28,16 +28,18 @@ PLAYLISTS = {
     "Philippians" : "Sermon Series",
     "Vision Sunday" : "Special Series",
     "Ruth Equip Class" : "Special Series",
+    "Celebrations" : "Special Series",
 }
 
 REFRESH_PLAYLIST = [
-    "Mark",
+    # "Mark",
     # "The Parables of Jesus",
     # "This is Reality",
     # "The Attributes of God",
     # "Philippians",
     # "Vision Sunday",
     # "Ruth Equip Class",
+    # "Celebrations",
 ]
 
 # PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
@@ -79,7 +81,6 @@ def get_channel_json():
     # Get all playlists from channel
     cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{CHANNEL_URL}/playlists"]
     playlist_data = run_command(cmd_playlists)
-    images = os.listdir(f'{FOLDER_ROOT}/images/')
 
     os.makedirs("playlists", exist_ok=True)
     # Process only target playlists
@@ -106,16 +107,19 @@ def get_channel_json():
 
                 # Get videos for this playlist with full details
                 if is_in_refreshlist(playlist_title) and item.get('url'):
-                    print(f"Downloading Videos for : {playlist_title}")
-                    playlist_videos = get_playlist_videos_with_details(item.get('url'))
+                    print(f"\nDownloading Videos for : {playlist_title} @ {item.get('url')}")
+                    playlist_videos = get_videos(item.get('url'))
                     save_playlist(filename, playlist_videos)
 
-    build_latest_playlist()
+    # Update the most recent playlist
+    videos = get_videos(f"{CHANNEL_URL}", 15)
+    save_playlist('most-recent', videos)
 
     playlists = sorted(playlists, key=lambda x: [k.lower() for k in PLAYLISTS.keys()].index(x.get('title').lower()))
     save_json(f"{FOLDER_ROOT}/index.json", playlists)
 
 
+# Not Used:  build from existing playlists, rather than re-downloading
 def build_latest_playlist():
     videos = []
     for file in os.listdir(f"{FOLDER_ROOT}/playlists"):
@@ -126,47 +130,35 @@ def build_latest_playlist():
     videos = videos[:15]
     save_playlist('most-recent', videos)
 
-def get_playlist_videos_with_details(playlist_url):
-    """Get videos from playlist with full details including descriptions."""
+def get_most_recent_videos():
+    """Get most recent channel videos with full details."""
+    videos = get_videos(f"{CHANNEL_URL}", 15)
+    save_playlist('most-recent', videos)
 
-    videos = []
 
-    # Get video IDs first
-    cmd = ['yt-dlp', '--dump-json', '--flat-playlist', playlist_url]
-    video_items = run_command(cmd)
-    # print(json.dumps(video_items[:3], indent=4))
-    # Get details for each video
-    for item in video_items:
+def get_videos(url, max=1000):
+    """Get full video details including description."""
+    result = []
+    cmd = ['yt-dlp', '--dump-json', '--flat-playlist', url]
+    items = run_command(cmd)
+    items = sorted(items, key=lambda x: x.get('epoch'), reverse=True)
+    for item in items[:max]:
         if item.get('_type') == 'url' and item.get('id'):
-            if any([item.get('id') == v.get('video_id') for v in videos]):
+            if any([item.get('id') == v.get('video_id') for v in result]):
+                print(f"    --- skipping duplicate {item.get('id')} :: {item.get('title')}")
                 continue
-            print(f"downloading details for {item.get('id')}")
+            print(f"downloading details for {item.get('id')} :: {item.get('title')}")
             video_details = get_video_details(item.get('id'))
             if video_details:
-                videos.append(video_details)
-    return videos
+                result.append(video_details)
+    print(f"Total videos with details: {len(result)}")
+    return result
 
-
-def get_all_videos_with_details(videos_url):
-    """Get all channel videos with full details."""
-    videos = []
-
-    # Get video IDs
-    cmd = ['yt-dlp', '--dump-json', '--flat-playlist', videos_url]
-    video_items = run_command(cmd)
-
-    # Get details for each video
-    for item in video_items:
-        if item.get('_type') == 'url' and item.get('id'):
-            video_details = get_video_details(item.get('id'))
-            if video_details:
-                videos.append(video_details)
-
-    return videos
 
 def convert_epoch_to_iso(epoch):
     dt_object_utc = datetime.fromtimestamp(epoch, timezone.utc)
     return dt_object_utc.isoformat()
+
 
 def get_video_details(video_id):
     """Get full video details including description."""
@@ -175,8 +167,11 @@ def get_video_details(video_id):
 
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-
-        if result.returncode == 0 and result.stdout.strip():
+        if result.returncode != 0:
+            print(f"DEBUG: yt-dlp returned non-zero exit code for {video_id}: {result.stderr}", file=sys.stderr)
+            # print(result.stderr)
+            return None
+        else:
             video_data = json.loads(result.stdout.strip())
             # print(json.dumps(video_data, indent=4))
             return {
@@ -192,6 +187,7 @@ def get_video_details(video_id):
         print(f"DEBUG: Error getting details for {video_id}: {e}", file=sys.stderr)
 
     return None
+
 
 def run_command(cmd):
     """Run yt-dlp command and return JSON objects."""
@@ -218,3 +214,4 @@ def run_command(cmd):
 
 if __name__ == "__main__":
     get_channel_json()
+    # get_most_recent_videos()

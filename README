@@ -1,7 +1,7 @@
 
 # Create Py environment to run script
 
-python3 -m venv myenv
+python3.14 -m venv myenv
 source myenv/bin/activate
 pip install requests google-api-python-client yt-dlp
-python parse.py
+python dev/parse.py

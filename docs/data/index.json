@@ -52,5 +52,12 @@
     "filename": "ruth-equip-class.json",
     "thumbnail_url": "/images/ruth-equip-class.jpg",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lyr_TFGlXhQu6JsYeB2kJ_5"
+  },
+  {
+    "title": "Celebrations",
+    "category": "Special Series",
+    "filename": "celebrations.json",
+    "thumbnail_url": "https://i.ytimg.com/vi/pFxV7A07QBw/hqdefault.jpg?sqp=-oaymwExCOADEI4CSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYPyBNKH8wDw==&rs=AOn4CLAnF_hK7XdXTp1vRrkfDQ_lOSuE5g",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lw8PhN4NKYPJMEkTx591mgm"
   }
 ]
