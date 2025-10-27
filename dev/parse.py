@@ -32,7 +32,7 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    # "Mark",
+    "Mark",
     # "The Parables of Jesus",
     # "This is Reality",
     # "The Attributes of God",
@@ -49,7 +49,7 @@ def playlist_category(playlist_title):
     for title, category in PLAYLISTS.items():
         if title.lower() == playlist_title.lower():
             return category
-    
+
 def is_in_playlist(title):
     return any(target.lower() == title.lower() for target in PLAYLISTS.keys())
 
@@ -68,7 +68,7 @@ def save_playlist(filename, data):
 def load_playlist(filename):
     with open(f"{FOLDER_ROOT}/playlists/{filename}", 'r', encoding='utf-8') as f:
         return json.load(f)
-    
+
 def get_channel_json():
     """Get specific playlists by name."""
 
