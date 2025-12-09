@@ -21,6 +21,7 @@ FOLDER_ROOT = "./docs/data"
 
 PLAYLISTS = {
     "Most Recent" : "",
+    "Advent" : "Special Series",
     "Mark" : "Sermon Series",
     "The Parables of Jesus" : "Sermon Series",
     "This is Reality": "Special Series",
@@ -32,7 +33,8 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    "Mark",
+    # "Mark",
+    # "Advent",
     # "The Parables of Jesus",
     # "This is Reality",
     # "The Attributes of God",
@@ -141,6 +143,7 @@ def get_videos(url, max=1000):
     result = []
     cmd = ['yt-dlp', '--dump-json', '--flat-playlist', url]
     items = run_command(cmd)
+    items = [i for i in items if i.get('was_live') is True]
     items = sorted(items, key=lambda x: x.get('epoch'), reverse=True)
     for item in items[:max]:
         if item.get('_type') == 'url' and item.get('id'):
@@ -214,4 +217,4 @@ def run_command(cmd):
 
 if __name__ == "__main__":
     get_channel_json()
-    # get_most_recent_videos()
+    get_most_recent_videos()

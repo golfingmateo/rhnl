@@ -5,6 +5,13 @@
     "thumbnail_url": "images/most-recent.jpg"
   },
   {
+    "title": "Advent",
+    "category": "Special Series",
+    "filename": "advent.json",
+    "thumbnail_url": "/images/advent.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lwgdUvbKgeGLc3rCHH39SSq"
+  },
+  {
     "title": "Mark",
     "category": "Sermon Series",
     "filename": "mark.json",
