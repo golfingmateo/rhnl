@@ -34,7 +34,7 @@ PLAYLISTS = {
 
 REFRESH_PLAYLIST = [
     # "Mark",
-    # "Advent",
+    "Advent",
     # "The Parables of Jesus",
     # "This is Reality",
     # "The Attributes of God",
