@@ -21,6 +21,7 @@ FOLDER_ROOT = "./docs/data"
 
 PLAYLISTS = {
     "Most Recent" : "",
+    "2 Timothy" : "Sermon Series",
     "Advent" : "Special Series",
     "Mark" : "Sermon Series",
     "The Parables of Jesus" : "Sermon Series",
@@ -33,8 +34,9 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
+    "2 Timothy",
     # "Mark",
-    "Advent",
+    # "Advent",
     # "The Parables of Jesus",
     # "This is Reality",
     # "The Attributes of God",

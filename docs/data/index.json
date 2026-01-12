@@ -5,6 +5,13 @@
     "thumbnail_url": "images/most-recent.jpg"
   },
   {
+    "title": "2 Timothy",
+    "category": "Sermon Series",
+    "filename": "2-timothy.json",
+    "thumbnail_url": "/images/2-timothy.jpg",
+    "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lyJZEVdGEGz4Dh4Cn0Efuwr"
+  },
+  {
     "title": "Advent",
     "category": "Special Series",
     "filename": "advent.json",
