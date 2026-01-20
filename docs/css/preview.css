@@ -1,0 +1,68 @@
+/*
+    Preview-only styles
+    These styles are for standalone preview and should NOT be included in Squarespace embeds
+    They provide base styling for body, headings, etc. that Squarespace will already have
+ */
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+h2 {
+  font-weight: 500;
+}
+
+h4 {
+  font-weight: 400;
+}
+
+/* Responsive heading sizes */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+  h4 {
+    font-size: 1.0rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.1rem;
+  }
+  h2 {
+    font-size: 1.0rem;
+  }
+  h4 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Link styles */
+a {
+  color: gray;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Container for standalone preview */
+.outside {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
+}

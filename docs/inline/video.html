@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+/////////////////////////////////////////////////////////////////////////////
+INLINE VERSION - All CSS and JavaScript embedded
+Optimized for Squarespace Code Block
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reality Honolulu | Watch Sermon</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Inline CSS -->
+    <style>
+/* Reset and container */
+.sermon-library-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sermon-library-container * {
+  box-sizing: border-box;
+}
+
+/* Back button */
+.back-button-container {
+  margin-bottom: 20px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+.back-button .material-icons {
+  font-size: 18px;
+}
+
+/* Video player */
+.video-player {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #000;
+  margin-bottom: 24px;
+}
+
+.video-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Sermon content */
+.sermon-content {
+  text-align: center;
+}
+
+.sermon-content h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+.sermon-description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  text-align: left;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.sermon-description p {
+  margin: 0 0 12px 0;
+}
+
+.sermon-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sermon-library-container {
+    padding: 16px;
+  }
+
+  .sermon-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .video-player {
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sermon-library-container {
+    padding: 12px;
+  }
+
+  .sermon-content h1 {
+    font-size: 1.25rem;
+  }
+
+  .sermon-description {
+    font-size: 0.95rem;
+  }
+}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="sermon-library-container">
+        <div class="back-button-container">
+            <button id="return-button" class="back-button">
+                <span class="material-icons">arrow_back</span>
+                Back to Sermons
+            </button>
+        </div>
+
+        <div class="video-player">
+            <iframe 
+                id="sermon-video" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="sermon-content">
+            <h1 id="sermon-title">Sermon Title</h1>
+            <div id="sermon-description" class="sermon-description">
+                <p>Sermon description will appear here.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Inline JavaScript -->
+    <script>
+// CONFIGURE THESE URLs to match your Squarespace pages
+const MAIN_PAGE_URL = 'index.html';    // Change to '/sermons'
+const SERIES_PAGE_URL = 'series.html'; // Change to '/sermons/series'
+
+async function initVideoPage() {
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('videoId');
+    const title = urlParams.get('title');
+    const thumbnail = urlParams.get('thumbnail');
+    const description = urlParams.get('description');
+    const seriesFilename = urlParams.get('series');
+    const seriesTitle = urlParams.get('seriesTitle');
+
+    if (!videoId) {
+        console.error('No video ID provided');
+        window.location.href = MAIN_PAGE_URL;
+        return;
+    }
+
+    // Set page title
+    const titleElement = document.getElementById("sermon-title");
+    titleElement.textContent = title || 'Sermon';
+    document.title = `Reality Honolulu | ${title || 'Sermon'}`;
+
+    // Set the video iframe src and title
+    const iframe = document.getElementById("sermon-video");
+    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    iframe.title = title || 'Sermon Video';
+
+    // Add sermon description text
+    const descriptionElement = document.getElementById("sermon-description");
+    if (description && description.trim()) {
+        descriptionElement.innerHTML = `<p>${description}</p>`;
+    } else {
+        descriptionElement.style.display = 'none';
+    }
+
+    // Setup return button
+    const returnButton = document.getElementById("return-button");
+    returnButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        // If coming from a series, go back to that series page
+        if (seriesFilename && seriesTitle) {
+            const params = new URLSearchParams({
+                filename: seriesFilename,
+                title: seriesTitle
+            });
+            window.location.href = `${SERIES_PAGE_URL}?${params.toString()}`;
+        } else {
+            window.location.href = MAIN_PAGE_URL;
+        }
+    });
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+// Entry Point
+document.addEventListener('DOMContentLoaded', function() {
+    initVideoPage();
+});
+    </script>
+
+</body>
+</html>

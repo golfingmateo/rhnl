@@ -34,7 +34,7 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    "2 Timothy",
+    # "2 Timothy",
     # "Mark",
     # "Advent",
     # "The Parables of Jesus",

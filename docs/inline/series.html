@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+/////////////////////////////////////////////////////////////////////////////
+INLINE VERSION - All CSS and JavaScript embedded
+Optimized for Squarespace Code Block
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reality Honolulu | Series</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Inline CSS -->
+    <style>
+/* Reset and container */
+.sermon-library-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sermon-library-container * {
+  box-sizing: border-box;
+}
+
+/* Back button */
+.back-button-container {
+  margin-bottom: 20px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+.back-button .material-icons {
+  font-size: 18px;
+}
+
+/* Series header */
+.series-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.series-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* Grid Gallery - Simple responsive grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+/* Thumbnail card */
+.thumbnail-card {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail-card:hover {
+  transform: translateY(-4px);
+}
+
+.thumbnail-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f0f0f0;
+}
+
+.thumbnail-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.thumbnail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 8px;
+}
+
+.thumbnail-card:hover .thumbnail-overlay {
+  opacity: 1;
+}
+
+.overlay-text {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.thumbnail-title {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .sermon-library-container {
+    padding: 12px;
+  }
+
+  .series-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="sermon-library-container">
+        <div class="back-button-container">
+            <button id="return-button" class="back-button">
+                <span class="material-icons">arrow_back</span>
+                Back to Sermons
+            </button>
+        </div>
+
+        <div class="series-header">
+            <h1 id="series-title">Series Title</h1>
+        </div>
+
+        <div id="sermons-container" class="gallery-grid">
+            <!-- Populated by script -->
+        </div>
+    </div>
+
+
+    <!-- Templates -->
+    <template id="video-thumbnail-template">
+        <div class="thumbnail-card">
+            <div class="thumbnail-image-wrapper">
+                <img class="thumbnail-image" src="" alt="">
+                <div class="thumbnail-overlay">
+                    <span class="overlay-text">Watch</span>
+                </div>
+            </div>
+            <div class="thumbnail-title">Title</div>
+        </div>
+    </template>
+
+
+    <!-- Inline JavaScript -->
+    <script>
+// CONFIGURE THESE URLs to match your Squarespace pages
+const MAIN_PAGE_URL = 'index.html';  // Change to '/sermons'
+const VIDEO_PAGE_URL = 'video.html'; // Change to '/sermons/watch'
+
+const API_BASE_URL = 'https://raw.githubusercontent.com/golfingmateo/rhnl/main/docs/data/';
+const API_PLAYLIST = API_BASE_URL + 'playlists/';
+
+async function fetchJson(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error){
+        console.error('Error fetching data:', error);
+    }
+}
+
+async function addSermonThumbnail(sermon, container, seriesFilename){
+    const tmpl = document.getElementById("video-thumbnail-template");
+    const clone = tmpl.content.cloneNode(true);
+
+    const img = clone.querySelector(".thumbnail-image");
+    img.src = sermon.thumbnail_url;
+    img.alt = sermon.title;
+
+    const title = clone.querySelector(".thumbnail-title");
+    title.textContent = sermon.title;
+
+    const card = clone.querySelector(".thumbnail-card");
+    card.addEventListener("click", () => {
+        const params = new URLSearchParams({
+            videoId: sermon.video_id,
+            title: sermon.title,
+            thumbnail: sermon.thumbnail_url,
+            description: sermon.description || '',
+            series: seriesFilename
+        });
+        window.location.href = `${VIDEO_PAGE_URL}?${params.toString()}`;
+    });
+
+    container.appendChild(clone);
+}
+
+async function initSeriesPage() {
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const filename = urlParams.get('filename');
+    const title = urlParams.get('title');
+
+    if (!filename) {
+        console.error('No series filename provided');
+        window.location.href = MAIN_PAGE_URL;
+        return;
+    }
+
+    // Set page title
+    const seriesTitle = document.getElementById("series-title");
+    seriesTitle.textContent = title || 'Series';
+    document.title = `Reality Honolulu | ${title || 'Series'}`;
+
+    // Setup return button
+    const returnButton = document.getElementById("return-button");
+    returnButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = MAIN_PAGE_URL;
+    });
+
+    // Load and display sermons
+    const container = document.getElementById("sermons-container");
+    const sermons = await fetchJson(API_PLAYLIST + filename);
+
+    if (sermons) {
+        sermons.forEach(sermon => {
+            addSermonThumbnail(sermon, container, filename);
+        });
+    }
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+// Entry Point
+document.addEventListener('DOMContentLoaded', function() {
+    initSeriesPage();
+});
+    </script>
+
+</body>
+</html>

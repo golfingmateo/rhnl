@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head / Includes
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reality Honolulu | Series</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- REQUIRED: Component styles for embedded functionality -->
+    <link rel="stylesheet" href="https://raw.githack.com/golfingmateo/rhnl/main/docs/css/embed.css">
+    <!-- <link rel="stylesheet" href="./css/embed.css"> -->
+
+    <!-- PREVIEW ONLY: Do NOT include in Squarespace embed - Squarespace handles these styles -->
+    <link rel="stylesheet" href="https://raw.githack.com/golfingmateo/rhnl/main/docs/css/preview.css">
+    <!-- <link rel="stylesheet" href="./css/preview.css"> -->
+
+</head>
+
+<!-- Body Start
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+-->
+
+<body>
+
+    <div class="outside">
+
+    <div id="main">
+        <!-- Template to show series of sermon videos -->
+        <div class="centered"></div>
+            <div id="return">
+                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+            </div>
+            <div class="series-page">
+                <h1>Series Title</h1>
+                <div id="sermons-container" class="grid-gallery">
+                    <!-- Populated by script -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <!-- Shared Component Templates -->
+    <template id="video-thumbnail-template">
+        <div class="video-container">
+            <div class="thumbnail-container">
+                <div class="stacked" id="video-thumbnail">
+                    <div class="thumbnail-content">
+                        <div>
+                            <img src="" alt="">
+                        </div>
+                        <div>
+                            <div class="thumbnail-info">
+                                <h4 class="thumbnail-title">Title</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transparent-overlay"> </div>
+                    <h4 class="overlay-title">Watch</h4>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- Load Scripts -->
+      <script src="js/series.js" defer></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/series.js?v=0000006" defer></script> -->
+     <!-- <script src="https://raw.githack.com/golfingmateo/rhnl/main/docs/js/series.js?v=0000004" defer></script> -->
+</body>
+</html>

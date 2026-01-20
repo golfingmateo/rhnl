@@ -16,10 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="https://raw.githubusercontent.com/golfingmateo/rhnl/refs/heads/main/docs/css/styles.css"> -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/css/styles.css?v=0000006"> -->
-    <link rel="stylesheet" href="https://raw.githack.com/golfingmateo/rhnl/main/docs/css/styles.css">
-    <!-- <link rel="stylesheet" href="./css/styles.css"> -->
+    <!-- REQUIRED: Component styles for embedded functionality -->
+    <link rel="stylesheet" href="https://raw.githack.com/golfingmateo/rhnl/main/docs/css/embed.css">
+    <!-- <link rel="stylesheet" href="./css/embed.css"> -->
+
+    <!-- PREVIEW ONLY: Do NOT include in Squarespace embed - Squarespace handles these styles -->
+    <link rel="stylesheet" href="https://raw.githack.com/golfingmateo/rhnl/main/docs/css/preview.css">
+    <!-- <link rel="stylesheet" href="./css/preview.css"> -->
 
     <!-- Dynamic LOAD CSS FILE local vs github
     <script>
@@ -103,13 +106,28 @@
 
     <!-- End of Main Page templates -->
 
+    <!-- Template to show series of sermon videos -->
+    <template id="series-template">
+        <div class="centered"></div>
+            <div id="return">
+                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
+            </div>
+            <div class="series-page">
+                <h1>Series Title</h1>
+                <div id="sermons-container" class="grid-gallery">
+                    <!-- Populated by script -->
+                </div>
+            </div>
+        </div>
+    </template>
+
     <!-- Template to watch sermon video -->
     <template id="sermon-template">
         <div class="sermon-page">
-            <div class="return">   
+            <div class="return">
                 <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
             </div>
-           
+
             <div class="responsive-video">
                 <iframe id="sermon-video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
@@ -120,26 +138,8 @@
         </div>
     </template>
 
-
-
-    <!-- Template to show series of sermon videos -->
-    <template id="series-template">
-        <div class="centered"></div>
-            <div id="return">   
-                <button id="return-button"><span class="material-icons">arrow_back</span> Back to Sermons</button>
-            </div>
-            <div class="series-page">
-                <h1>Series Title</h1>
-                <div id="sermons-container" class="grid-gallery">
-                    <!-- Populated by script -->
-                    <!-- video-thumbnail-template -->
-                </div>
-            </div>
-        </div>
-    </template>
-
     <!-- Section Templates -->
-    
+
 
 
     <!-- Shared Component Templates -->
@@ -189,9 +189,9 @@
 
 
     <!-- Load Scripts -->
-      <script src="js/main.js" defer></script> 
-    <!-- <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/main.js?v=0000006" defer></script> -->
-     <!-- <script src="https://raw.githack.com/golfingmateo/rhnl/main/docs/js/main.js?v=0000004" defer></script> -->
-    <!-- <script src="https://raw.githubusercontent.com/golfingmateo/rhnl/refs/heads/main/docs/js/main.js" defer></script> -->
+      <script src="js/index.js" defer></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/golfingmateo/rhnl@main/docs/js/index.js?v=0000006" defer></script> -->
+     <!-- <script src="https://raw.githack.com/golfingmateo/rhnl/main/docs/js/index.js?v=0000004" defer></script> -->
+    <!-- <script src="https://raw.githubusercontent.com/golfingmateo/rhnl/refs/heads/main/docs/js/index.js" defer></script> -->
 </body>
 </html>
