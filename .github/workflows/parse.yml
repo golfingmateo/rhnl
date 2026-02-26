@@ -1,0 +1,54 @@
+name: Run parse.py
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 9 * * 1'
+
+jobs:
+  run-parser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Prepare output directories
+        run: |
+          mkdir -p docs/data/playlists
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yt-dlp
+
+      - name: Run parser
+        run: |
+          python dev/parse.py
+
+      - name: Commit and create pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update playlists"
+          branch: "auto/update-playlists-${{ github.run_id }}"
+          title: "Automated playlist update"
+          body: "This PR updates generated playlist files."
+          base: main
+          paths: docs/data/playlists/**
+
+      - name: Upload playlists artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playlists
+          path: docs/data/playlists
