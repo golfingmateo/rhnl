@@ -34,7 +34,7 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    # "2 Timothy",
+    "2 Timothy",
     # "Mark",
     # "Advent",
     # "The Parables of Jesus",
@@ -86,7 +86,7 @@ def get_channel_json():
     cmd_playlists = ['yt-dlp', '--dump-json', '--flat-playlist', f"{CHANNEL_URL}/playlists"]
     playlist_data = run_command(cmd_playlists)
 
-    os.makedirs("playlists", exist_ok=True)
+    os.makedirs(f"{FOLDER_ROOT}/playlists", exist_ok=True)
     # Process only target playlists
     for item in playlist_data:
         if item.get('webpage_url_basename') == 'playlist':
