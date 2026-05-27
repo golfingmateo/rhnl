@@ -34,7 +34,7 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    "2 Timothy",
+    # "2 Timothy",
     # "Mark",
     # "Advent",
     # "The Parables of Jesus",
@@ -44,6 +44,7 @@ REFRESH_PLAYLIST = [
     # "Vision Sunday",
     # "Ruth Equip Class",
     # "Celebrations",
+    # "Easter",
 ]
 
 # PLAYLISTS = [p.lower().strip() for p in PLAYLISTS]
@@ -143,9 +144,9 @@ def get_most_recent_videos():
 def get_videos(url, max=1000):
     """Get full video details including description."""
     result = []
-    cmd = ['yt-dlp', '--dump-json', '--flat-playlist', url]
+    cmd = ['yt-dlp', '--dump-json', '--flat-playlist', '--match-filters', 'is_live', url]
     items = run_command(cmd)
-    items = [i for i in items if i.get('was_live') is True]
+    #items = [i for i in items if i.get('was_live') is True]
     items = sorted(items, key=lambda x: x.get('epoch'), reverse=True)
     for item in items[:max]:
         if item.get('_type') == 'url' and item.get('id'):
