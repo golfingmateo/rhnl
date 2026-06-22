@@ -5,6 +5,13 @@
     "thumbnail_url": "images/most-recent.jpg"
   },
   {
+    "title": "A New Way To Be Human",
+    "category": "Sermon Series",
+    "filename": "a-new-way-to-be-human.json",
+    "thumbnail_url": "https://i.ytimg.com/pl_c/PLE0K7TtRgmDo/studio_square_thumbnail.jpg?sqp=COCa5dEG-oaymwEICIAKENAFSFqi85f_AwYI4L7B0QY=&rs=AOn4CLC6s84chKfxv21CegJxVHbHPba4lg",
+    "link": "https://www.youtube.com/playlist?list=PLE0K7TtRgmDo"
+  },
+  {
     "title": "2 Timothy",
     "category": "Sermon Series",
     "filename": "2-timothy.json",
@@ -71,7 +78,7 @@
     "title": "Celebrations",
     "category": "Special Series",
     "filename": "celebrations.json",
-    "thumbnail_url": "https://i.ytimg.com/vi/w89rY9HkSUY/hqdefault.jpg?sqp=-oaymwExCOADEI4CSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYZSBaKFYwDw==&rs=AOn4CLDJCe60k3t8tKZeh7HuwcydRJ6bAQ",
+    "thumbnail_url": "https://i.ytimg.com/vi/X3_P9PtO8t0/hqdefault.jpg?sqp=-oaymwExCOADEI4CSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYHCA1KH8wDw==&rs=AOn4CLCP-c4fwXnXQzHy3zJZsvdfAgGPZQ",
     "link": "https://www.youtube.com/playlist?list=PLwwLAokm-4lw8PhN4NKYPJMEkTx591mgm"
   }
 ]
