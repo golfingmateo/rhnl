@@ -20,6 +20,7 @@ FOLDER_ROOT = "./docs/data"
 
 PLAYLISTS = {
     "Most Recent": "",
+    "Origins" : "Sermon Series",
     "A New Way To Be Human": "Sermon Series",
     "2 Timothy": "Sermon Series",
     "Advent": "Special Series",
@@ -256,4 +257,4 @@ def run_command(cmd):
 
 if __name__ == "__main__":
     get_channel_json()
-    get_most_recent_videos()
+    # get_most_recent_videos()
