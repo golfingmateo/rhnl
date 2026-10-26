@@ -35,7 +35,8 @@ PLAYLISTS = {
 }
 
 REFRESH_PLAYLIST = [
-    "A New Way To Be Human",
+    "Origins",
+    # "A New Way To Be Human",
     # "2 Timothy",
     # "Mark",
     # "Advent",
